@@ -1,0 +1,34 @@
+
+    <div class="span2">
+      <!--Sidebar content-->
+        <div style="padding: 0;" class="well">
+	        <ul class="nav nav-list" ng-repeat="tab in tables">
+				<li><a href="#/{{bucket}}/{{tab.name}}">{{tab.name}}</a></li>
+	        </ul>
+	    </div>
+    </div>
+    <div class="span10">
+    <!--Body content-->
+    <fieldset>
+    	<legend>详情</legend>
+	   	<table>
+	   		<tr ng-repeat="field in table.info">
+	      		<td>{{field.aliasName}} : </td>
+	      		<td>
+					<span ng-switch="field.displayType">
+					<span ng-switch-when="-1"></span>
+					<span ng-switch-when="3">{{entity[field.name] | strcustom:table.many2one[field.name]:field.displayType}}<br/></span>
+					<span ng-switch-when="2">{{entity[field.name] | strcustom:field.displayValue:field.displayType}}<br/></span>
+					<span ng-switch-when="5"><img ng-repeat="img in entity[field.name]" style="height:76px;width:76px" src="{{img}}" /><br/></span>
+					<span ng-switch-default>{{entity[field.name]}}<br/></span>
+			 	</td>
+	  	  	</tr>
+	   	</table>
+	   	<div class="form-actions">
+	   		<button class="btn" type="button"  ng-click="back()">返回</button>
+	   	</div>
+    </fieldset>
+    </div>
+
+
+

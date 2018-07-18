@@ -1,0 +1,416 @@
+/*restUser left*/
+.content_sidebar {
+	width: 195px;
+	border-right: 2px solid #cecece;
+	height: 100%;
+	height: 1000px;
+	float: left;
+	position: relative;
+}
+
+.content_sidebar .sidebar_title {
+	font-size: 18px;
+	height: 80px;
+	line-height: 80px;
+	text-indent: 20px;
+	width: 100%;
+}
+
+.content_sidebar ul li {
+	height: 32px;
+}
+
+.content_sidebar ul li a {
+	display: inline-block;
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	text-indent: 20px;
+	color: #4c4948;
+}
+
+.content_sidebar ul li a:hover,.content_sidebar ul li a.active {
+	background: #E2E2E2;
+	color: #4c4948;
+}
+.side_content_main {
+	float: left;
+	background: #fff;
+	position: absolute;
+	left: 200px;
+}
+.side_content_block_fullwidth {
+	top: 40 0 0 0;
+	width: 95%;
+	margin: 0 0 0 10px;
+}
+.side_content_block_first {
+	margin: 0 0 0 40px;
+}
+
+/*restUser left-----END*/
+
+
+/*Table样式*/
+.rest_tab_table{
+	width:100%;
+	border-left: 2px solid #c9c9c9;
+	border-top: 2px solid #c9c9c9;
+	border-spacing: 0;
+	text-align: left;
+}
+.rest_tab_table_th{
+	background: none repeat scroll 0 0 #ebeef0;
+    border-bottom: 2px solid #c9c9c9;
+    border-right: 1px solid silver;
+    cursor: pointer;
+    margin: 0;
+    padding: 2px 5px;
+    width: 15%;
+}
+.rest_tab_table_th2{
+	background: none repeat scroll 0 0 #ebeef0;
+    border-bottom: 2px solid #c9c9c9;
+    border-right: 1px solid silver;
+    cursor: pointer;
+    margin: 0;
+    padding: 2px 5px;
+    width: 20%;
+}
+.rest_tab_table_th3{
+	background: none repeat scroll 0 0 #ebeef0;
+    border-bottom: 2px solid #c9c9c9;
+    border-right: 1px solid silver;
+    cursor: pointer;
+    margin: 0;
+    padding: 2px 5px;
+    width: 25%;
+}
+.rest_tab_table_th4{
+	background: none repeat scroll 0 0 #ebeef0;
+    border-bottom: 2px solid #c9c9c9;
+    border-right: 1px solid silver;
+    cursor: pointer;
+    margin: 0;
+    padding: 2px 5px;
+    width: 5%;
+}
+#rest_tab_table tr th,#rest_tab_table tr td{
+	line-height: 30px;
+	padding-left: 8px;
+	border-right: 2px solid #c9c9c9;
+	border-bottom: 2px solid #c9c9c9;
+}
+#rest_tab_table tr td a {
+	padding-right: 20px;
+}
+
+/*Table框里*/
+.tab_msg_list table {
+    background-color: rgba(0, 0, 0, 0);
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+.tab_msg_list table th {
+    background: none repeat scroll 0 0 #EBEEF0;
+    border: 1px solid silver;
+    font-weight: bolder;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+     border-bottom: 2px solid #c9c9c9;
+}
+.tab_msg_list table td {
+    border: 1px solid #d2d2d2;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+/*消息图片显示*/
+.date_log_nodata {
+    font-size: 20px;
+    height: 400px;
+    margin: 0 auto;
+    padding: 100px 0 0;
+    text-align: center;
+    width: 300px;
+}
+.date_log_nodata img {
+    margin: 0 0 20px;
+}
+
+/*Table之上按钮
+
+ .tabButton{
+	position :  relative  ; 
+    width: 100%;
+	height: 40px;
+	margin-top:20px;
+}
+.tabButton a{
+	text-align: center;
+	background: #f7f7f7;
+	border: 1px solid #b9b9b9;
+	margin: 2px 0 0 15px;
+	width: 67px;
+	height: 23px;
+	line-height: 23px;
+	border-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.tabButton a.tabButton-left{
+	position:absolute;
+	float: left;
+}
+	#table_acl{
+		left: 80px;
+	}
+
+.tabButton a:HOVER{
+	background-color: #FaFaFa
+}
+.tabButton a.save{
+	display:block;
+	float: right;
+	margin-right:15px;
+}
+.tabButton a.cancel{
+	display:block;
+	background-color: #F7EFEF;
+	float: right;
+	margin-right:15px;
+}*/
+
+/*弹出框*/
+/*#new-user-dialog {
+	width: 510px;
+	height: 450px;
+}
+#new-user-dialog .dialog{
+	width:480px;
+	margin-top: 30px;
+}
+#new-user-dialog .dialog input ,select{
+	border: 1px solid #BDBDBD;
+}
+#new-user-dialog .dialog table {
+	width: 100%;
+}
+#new-user-dialog .dialog table tr{
+	height: 40px;
+}
+#new-user-dialog .dialog table .label{
+	width: 20%;
+	height: 20px;
+}
+#new-user-dialog .dialog table .filed{
+	width: 80%;
+	height: 20px;
+}
+#new-user-dialog .dialog table .filed label{
+	margin-right: 20px; 
+}
+#new-user-dialog .dialog table .filedInput{
+	width: 80%;
+}
+#new-user-dialog .dialog  table tr:last-child{
+	height: 70px;
+}*/
+
+
+#new-user-dialog {
+	width: 510px;
+	height: 450px;
+}
+/*#new-user-dialog .dialog{
+	width:480px;
+	margin-top: 30px;
+}*/
+#new-user-dialog input ,select{
+	border: 1px solid #BDBDBD;
+}
+#new-user-dialog .dialog table {
+	width: 100%;
+}
+#new-user-dialog table tr{
+	height: 40px;
+}
+#new-user-dialog table .label{
+	width: 20%;
+	height: 20px;
+}
+#new-user-dialog table .filed{
+	width: 80%;
+	height: 20px;
+}
+#new-user-dialog table .filed label{
+	margin-right: 20px; 
+}
+#new-user-dialog table .filedInput{
+	width: 80%;
+}
+#new-user-dialog  table tr:last-child{
+	height: 70px;
+}
+/*弹出框底栏按钮*/
+.floorbutton{
+	text-align:center;
+    margin-top:30px;
+    width: inherit;
+}
+.floorbutton .btn{
+		display: inline-block;
+		padding: 6px 20px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+		border-radius: 4px;
+	}
+.floorbutton .addAcl{
+		color: #fff;
+		background-color: #428bca;
+		border-color: #357ebd;
+	}
+.floorbutton .addAcl:HOVER{
+		color: #fff;
+	    background-color: #3071a9;
+	    border-color: #285e8e;
+	}
+.floorbutton .cancel{
+		margin-left:70px;
+		color: #333;
+		background-color: #fff;
+		border-color: #ccc;
+	}
+.floorbutton .cancel:HOVER{
+		margin-left:70px;
+		color: #333;
+		background-color: #e6e6e6;
+		border-color: #adadad;
+	}
+/*弹出框底栏按钮End*/
+/*group-role-dialog 用户组添加Role  样式*/
+#group-role-dialog table tbody tr {
+		display:block;
+		margin-bottom:20px;
+		background-color: #fff;
+		background-image: none;
+		/* border: 1px solid #ccc; */
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.19);
+		
+	}
+#group-role-dialog table .form-group {
+			background: none repeat scroll 0 0 rgb(248, 248, 248);	
+		}
+ .rolelist label{
+		cursor:pointer;
+		margin-right:20px;
+		display: inline-block;
+		width:110px;
+		height:20px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space:nowrap;
+			}
+/*group-role-dialog 用户组添加Role  样式   End*/
+/*user-grl-dialog 用户添加用户组+Role*/
+#user-grl-dialog table tbody tr {
+		display:block;
+		margin-bottom:20px;
+		background-color: #fff;
+		background-image: none;
+		/* border: 1px solid #ccc; */
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.19);
+		
+	}
+#user-grl-dialog table .form-group {
+			background: none repeat scroll 0 0 rgb(248, 248, 248);	
+		}
+.form-group .groupsList label{
+			cursor:pointer;
+			margin-right:20px;
+			display: inline-block;
+			width:110px;
+			height:20px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space:nowrap;
+	}
+.form-group .groupsList label:HOVER{
+			color: black;
+	}
+.form-group #rolesList label{
+			width:190px;
+	}
+.form-group .bunch_label{
+			float: left;
+			padding-top: 7px;
+			margin-right: 3%;
+			width:15%;
+			font-weight: 700;
+			text-align:right ;
+	}
+/*user-grl-dialog 用户添加用户组+Role End*/
+
+/*用户管理Css*/
+.detailsbtn a{
+	padding: 0 10px;
+}
+/*用户管理Css End*/
+
+/*角色管理Css*/
+.detailsbtn2 a{
+	padding: 0 10px;
+}
+/*角色管理Css End*/
+
+/*遮罩层*/
+	.loaderBg {
+	background-color: #4d4d4d; 
+	display:none;
+	width: 100%;
+	height: 100%;
+	left:0;
+	top:0;/*FF IE7*/
+	filter:alpha(opacity=50);/*IE*/
+	opacity:0.5;/*FF*/
+	z-index:999;
+	position:fixed !important;/*FF IE7*/
+	position:absolute;/*IE6*/
+	_top:expression(eval(document.compatMode &&
+		 document.compatMode=='CSS1Compat') ?
+		 documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/
+		 document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);
+}
+#shclDefault{
+	width:100px;
+	height:100px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -50px;
+	margin-top: -50px;
+	z-index: 1000;
+}
+a:hover, a.on, .menu li a.on {
+    color: #56baee;
+    cursor: pointer;
+    text-decoration: none;
+}
+border: 2px solid #c9c9c9;

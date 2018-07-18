@@ -1,0 +1,319 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Uncode用户设置-Uncode移动后端云</title>
+		<meta name="keywords" content="uncode,移动后端云,后端云,移动云服务,移动云存储,baas,MBaas,backend as a service">
+		<meta name="description" content="Uncode移动后端云,专注于移动应用后端云服务,专业的MBaaS服务商,提供免费的后端云服务,帮助移动应用快速定制自已的后端业务逻辑。">
+		<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		<link rel="stylesheet" type="text/css" href="../css/list.css">
+		<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.8.18.custom.css">
+		<link rel="stylesheet" type="text/css" href="../css/admin.css">
+
+		<title>小葱rest-帐号管理</title>
+
+	</head>
+
+	<body>
+		<div class="top" id="top">
+			<div id="logodiv">
+				<a href="javascript:;">
+					<img src="../images/logo.png" alt="" class="logo" />
+				</a>
+			</div>
+			<div class="menu">
+				<a href="list.html" class="yymb"> <span></span> 应用面板
+				</a>
+				<a href="http://www.uncode.cn/doc/index.html" class="kfwd"> <span></span> 开发文档
+				</a>
+				<a href="account.html" class="zhgl on"> <span></span> 帐户管理
+				</a>
+				<a href="javascript:;" class="xx"> <span></span> 消息
+				</a>
+				<a href="javascript:;" class="tc"> <span></span> 退出
+				</a>
+			</div>
+			<p class="tx">
+				<img src="../images/user.gif" /> <span id="userName"></span>
+			</p>
+		</div>
+
+
+		<!-- ================详情页===================== -->
+		<div id="appDetail" class="appDetail" style="display: block;">
+
+			<div class="yymblb">
+				<!-------- 左侧导航-------- -->
+				<a href="javascript:zhxx();" id="a_zhxx"> <span class="bg4"></span> 账户信息</a>
+				<a href="javascript:xgmm();" id="a_xgmm"> <span class="bg9"></span> 修改密码</a>
+			</div>
+			<div class="zhszbg">
+				<!------------ 账户信息 ---------------->
+					<div class="zhxx" id="zhxx" style="display: none;">
+						<form method="post" onsubmit="return account.validateAll()" id="user-form">
+							<table>
+								<tbody>
+									<tr>
+										<td>注册邮箱：</td>
+										<td class="secondtd">
+											<input type="text" value=""  id="email" class="email" readonly="readonly"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="must_write">*</label>真实姓名：</td>
+										<td class="secondtd">
+											<input type="text" value="" onblur="account.CheckName()" id="name" class="username" name="UserForm[name]">
+										</td>
+										<td><span id="nameMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="must_write">*</label>手机号码：</td>
+										<td class="secondtd">
+											<input type="text" value="" id="mobile" onblur="account.CheckMobile()" class="cellphone" name="UserForm[mobile]">
+										</td>
+
+										<td><span id="mobileMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>固定电话：</td>
+										<td class="secondtd">
+											<input type="text" value="" id="telephone" onblur="account.CheckPhone()" name="UserForm[phone]" class="homephone">
+										</td>
+										<td><span id="phoneMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="must_write">*</label>QQ&nbsp;号&nbsp;码：</td>
+										<td class="secondtd">
+											<input type="text" value="" id="qq" onblur="account.CheckQQ()" name="UserForm[qq]" class="qqnum">
+										</td>
+										<td><span id="qqMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="must_write">*</label>联系地址：</td>
+										<td class="secondtd">
+											<input type="text" onblur="account.CheckAddress()" value="" id="address" name="UserForm[address]" class="address">
+
+										</td>
+										<td><span id="addressMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="must_write">*</label>邮政编码：</td>
+										<td class="secondtd">
+											<input type="text" onblur="account.CheckPost()" value="" id="zipcode" name="UserForm[post]" class="code">
+
+										</td>
+										<td><span id="postMsg"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>公司名称：</td>
+										<td class="secondtd">
+											<input type="text" value="" onblur="account.CheckCompany()" id="company" name="UserForm[company]" class="homepage">
+										</td>
+										<td class="cwts"><span id="companyMsg"></span>
+										</td>
+									</tr>
+									<!--<tr><td>个人主页：</td><td class="secondtd"><input type="text" name="homepage" class="homepage"/></td><td><span>请输入正确的个人主页</span></td></tr>-->
+
+									<tr>
+										<td></td>
+										<td class="secondtd">
+											<input type="submit" value="保存" name="submitbutton" class="submitbutton" onclick="zhCommit()">
+											<input type="reset" value="取消" name="cancelbutton" class="cancelbutton">
+
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+					</div>
+				<!------------ 密码设置 ---------------->
+					<div class="xgmm" style="display: none;" id="xgmm">
+						<form method="post" onsubmit="return validateAll()" action="/account/reset" id="psw-form">
+
+							<table>
+
+								<tbody>
+									<tr>
+										<td>
+											<label class="must_write">*</label>现有密码：</td>
+										<td>
+											<input id="userName" type="hidden" name="RessetForm[mail]" value="">
+											<input type="password" onblur="CheckOld()" id="oldPassword" name="RessetForm[oldpsw]" class="passwd">
+										</td>
+										<td><span id="oldMsg"></span>
+										</td>
+									</tr>
+									<tr>
+
+										<td>
+											<label class="must_write">*</label>新密码：</td>
+										<td>
+											<input type="password" onblur="CheckPsw()" id="password" name="RessetForm[password]" class="newpasswd">
+										</td>
+										<td><span id="pswMsg"></span>
+										</td>
+									</tr>
+									<tr>
+
+										<td>
+											<label class="must_write">*</label>确认新密码：</td>
+										<td>
+											<input type="password" onblur="CheckRepsw()" id="repsw" name="RessetForm[repsw]" class="newpasswd">
+										</td>
+										<td><span id="repswMsg"></span>
+										</td>
+									</tr>
+
+
+									<tr>
+										<td></td>
+										<td>
+											<input type="submit" value="确定" class="submitbutton" name="submitbutton" onclick="mmCommit()">
+											<input type="reset" value="取消" class="cancelbutton" name="cancelbutton">
+										</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+					</div>
+				<!------------ 应用设置 ---------------->
+				<div id="appSet" class="appSet">
+					<script type="text/template" id="restDtail-template">
+						<div class="yyszbg">
+							<div class="yysz yysz_wrap">
+								<div id="msg_success" class="bannertips bannertips_succ" style="display: none;top: 2px;width: 38%;"></div>
+								<div id="msg_error" class="bannertips bannertips_error" style="display: none;top: 2px;width: 38%;"></div>
+								<p class="title"><strong>应用设置</strong>
+								</p>
+								<div class="yyszbd">
+									<table>
+										<tr>
+											<td>应用名称：</td>
+											<td class="second">
+												<input name="rest_name" id="rest_name" class="yymc" value="<%=name%>" maxlength="20" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>应用标识：</td>
+											<td class="second">
+												<input name="rest_bucket" id="rest_bucket" class="yymc" value="<%=bucket%>" type="text" readonly="readonly">
+											</td>
+										</tr>
+										<tr>
+											<td>创建时间：</td>
+											<td class="second">
+												<%="undefined"==t ypeof (createTime)||!createTime? "" :createTime%>
+											</td>
+										</tr>
+										<tr>
+											<td>数据库类型：</td>
+											<td class="second">
+												<select id="rest_dbType" name="rest_dbType">
+													<%if( "undefined"==t ypeof(dbType)||!dbType){%>
+														<option value="0">默认</option>
+														<option value="1">mysql</option>
+														<option value="2">mongodb</option>
+														<%} else{%>
+															<option value="0" <%=dbType==0? "selected= 'selected'": ""%>>默认</option>
+															<option value="1" <%=dbType==1? "selected= 'selected'": ""%>>mysql</option>
+															<option value="2" <%=dbType==2? "selected= 'selected'": ""%>>mongodb</option>
+															<%}%>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>数据库状态：</td>
+											<td class="second">
+												<select id="rest_status" name="rest_status">
+													<%if( "undefined"==t ypeof(status)||!status){%>
+														<option value="0">禁用</option>
+														<option value="1">可用</option>
+														<%} else{%>
+															<option value="0" <%=status==0? "selected= 'selected'": ""%>>禁用</option>
+															<option value="1" <%=status==1? "selected= 'selected'": ""%>>可用</option>
+															<%}%>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>数据库驱动：</td>
+											<td class="second">
+												<input name="rest_dbDriverClass" id="rest_dbDriverClass" class="yymc" value=" <%=" undefined " == typeof (dbDriverClass)||!dbDriverClass? " " :dbDriverClass%> " maxlength="20" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>数据库地址：</td>
+											<td class="second">
+												<input name="rest_dbURL" id="rest_dbURL" class="yymc" value="<%=" undefined " == typeof (dbURL)||!dbURL? " " :dbURL%>" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>数据库名称：</td>
+											<td class="second">
+												<input name="rest_dbUsername" id="rest_dbUsername" class="yymc" value="<%=" undefined " == typeof (dbUsername)||!dbUsername? " " :dbUsername%>" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>数据库密码：</td>
+											<td class="second">
+												<input name="rest_dbPassword" id="rest_dbPassword" class="yymc" value="<%=" undefined " == typeof (dbPassword)||!dbPassword? " " :dbPassword%>" maxlength="20" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>数据库秘钥：</td>
+											<td class="second">
+												<input name="rest_secretKey" id="rest_secretKey" class="yymc" value="<%=" undefined " == typeof (secretKey)||!secretKey? " " :secretKey%>" maxlength="20" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="sccx" value="修    改" type="button">
+											</td>
+											<td class="second"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</script>
+				</div>
+
+
+				<!----------- 数据管理---------------->
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/jslib/jquery-1.7.min.js" ></script>
+	<!--<script src="../js/jslib/jquery-1.11.1.min.js"></script>-->
+	<script src="../js/jslib/jquery.cookie-1.4.js"></script>
+	<script src="../js/jslib/underscore.js"></script>
+	<script src="../js/jslib/jquery-ui.min.js"></script>
+	<script src="../js/jslib/jquery-migrate-1.2.1.js"></script>
+	<script src="../js/jslib/rest_backbone.js"></script>
+	
+	<script src="../js/common/common.js"></script>
+	<script src="../js/app/list/Common.js"></script>
+	<script src="../js/app/list/account.js"></script>
+	<script src="../js/app/list/nav.js"></script>
+	
+	
+	
+	
+	
+</html>

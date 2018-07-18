@@ -1,0 +1,98 @@
+
+    <div class="span2">
+      <!--Sidebar content-->
+        <div style="padding: 0;" class="well">
+	        <ul class="nav nav-list" ng-repeat="tab in tables">
+	          <li><a href="#/{{bucket}}/{{tab.name}}">{{tab.name}}</a></li>
+	        </ul>
+	      </div>
+    </div>
+    <div class="span10">
+      <!--Body content-->
+	      <form class="form-horizontal">
+	      <fieldset>
+	      <legend>新建记录</legend>
+	      <span ng-repeat="field in table.info">
+	      	<span ng-switch="field.request">
+	      		<span ng-switch-when="-1"></span>
+	      		<span ng-switch-default>
+					<table>
+						<tr>
+						<td>
+						<span ng-switch="field.formType">
+							<span ng-switch-when="0"></span>
+							<span ng-switch-default>{{field.aliasName}} :</span>
+					  	</span>
+						</td>
+						<td>
+						<span ng-switch="field.formType">
+							<span ng-switch-when="1">
+								<input type="text" ng-model="entity[field.name]" />
+								<span class="error" ng-show="field.validateError">{{field.validateErrorMessage}}</span><br/>
+							</span>
+							<span ng-switch-when="5">
+								<span class="uploader" path="entity[field.name]"></span>
+								<span class="error" ng-show="field.validateError">{{field.validateErrorMessage}}</span><br/>
+							</span>
+							<span ng-switch-when="4">
+								<span ng-switch="field.displayType">
+									<span ng-switch-when="3">
+										<span ng-repeat="(key, value) in table.many2one[field.name]">
+											<input type="checkbox" ng-model="cbvalue[field.name][key]"/> {{value}} 
+										</span>
+									</span>
+									<span ng-switch-when="2">
+										<span ng-repeat="(key, value) in field.displayValueMap">
+											<input type="checkbox" ng-model="cbvalue[field.name][key]" /> {{value}}
+										</span>
+									</span>
+								</span>
+								<span class="error" ng-show="field.validateError">{{field.validateErrorMessage}}</span><br/>
+							</span>
+							<span ng-switch-when="3">
+								<span ng-switch="field.displayType">
+									<span ng-switch-when="3">
+										<span ng-repeat="(key, value) in table.many2one[field.name]">
+											<input type="radio" ng-model="entity[field.name]" value="{{key}}"> {{value}}
+										</span>
+									</span>
+									<span ng-switch-when="2">
+										<span ng-repeat="(key, value) in field.displayValueMap">
+											<input type="radio" ng-model="entity[field.name]" value="{{key}}"> {{value}}
+										</span>
+									</span>
+								</span>
+								<span class="error" ng-show="field.validateError">{{field.validateErrorMessage}}</span><br/>
+							</span>
+							<span ng-switch-when="2">
+								<span ng-switch="field.displayType">
+									<span ng-switch-when="3">
+										<select ng-model="entity[field.name]" ng-options="key as value for (key, value) in table.many2one[field.name]"  
+											ng-value="entity[field.name]">
+											<option value="">--请选择--</option>
+										</select>
+									</span>
+									<span ng-switch-when="2">
+										<select ng-model="entity[field.name]" ng-options="key as value for (key, value) in field.displayValueMap" 
+											ng-value="entity[field.name]">
+											<option value="">--请选择--</option>
+										</select>
+									</span>
+								</span>
+								<span class="error" ng-show="field.validateError">{{field.validateErrorMessage}}</span><br/>								 	
+							</span>
+							<span ng-switch-default></span>
+					  	</span>
+					  	</td>
+						</tr>
+					</table>
+	      		</span>
+	      	</span>					
+	  	  </span>
+	  	  <div class="form-actions">
+	  	  	<button class="btn btn-primary" type="button" ng-click="save()">保存</button>
+	  	  	<button class="btn" type="button"  ng-click="back()">返回</button>
+	  	  </div>
+	      </fieldset>
+	      </form>
+    </div>

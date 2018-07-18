@@ -1,0 +1,79 @@
+<div class="span2">
+	<!--Sidebar content-->
+	<!--<div style="padding:0;" class="well">-->
+		<ul class="nav nav-list">
+			<li ng-repeat="tab in tables" class="{{tab.name | checklist}}"><a href="#/{{bucket}}/{{tab.name}}">{{tab.name}}</a></li>
+		</ul>
+	<!--</div>-->
+</div>
+		
+<div class="span10">
+	<div class="search-list">
+		<span ng-repeat="field in table.info">
+		  	<span ng-switch="field.searchType">
+		  		<span ng-switch-when="0"></span>
+				<span ng-switch-default>
+					<span ng-switch="field.formType">
+						<span ng-switch-when="1">{{field.aliasName}} : <input ng-model="condtion[field.name]"/></span>
+						<span ng-switch-when="2">
+							{{field.aliasName}}:
+							<span ng-switch="field.displayType">
+								<span ng-switch-when="3">
+									<select ng-model="condtion[field.name]" ng-options="key as value for (key, value) in table.many2one[field.name]">
+										<option value="">--请选择--</option>
+									</select>
+								</span>
+								<span ng-switch-when="2">
+									<select ng-model="condtion[field.name]" ng-options="key as value for (key, value) in field.displayValueMap">
+										<option value="">--请选择--</option>
+									</select>
+								</span>
+							</span>
+						</span>
+						<span ng-switch-default></span>
+					 </span>
+				</span>
+		  	</span>
+		</span>
+		<button class="btn" type="button" ng-click="search()" style="margin-top: -8px;">查询</button>
+		<a href="#/{{bucket}}/{{tableName}}/create" has-permission='insert'>新增</a>      
+	</div>
+	<!--Body content-->
+	<div class="block">
+		<div class="navbar navbar-inner block-header">
+      		<!--<div class="muted pull-left">table</div>-->
+      	</div>
+      	<div class="block-content collapse in" style="overflow: auto;max-height: 500px;">
+      		<table class="table table-bordered table-striped">
+				<thead>
+			  		<tr>
+						<th ng-repeat="field in table.info" style="display: {{field.sort|isShow}}">{{field.aliasName}}</th>
+						<th>操作</th>
+			  		</tr>
+				</thead>
+		  		<tbody>		  
+		  			<tr ng-repeat="val in values">
+						<td ng-repeat="field in table.info" style="display: {{field.sort|isShow}}">
+				          <span ng-switch="field.displayType">
+							<span ng-switch-when="3">
+							<a href="#/{{bucket}}/{{table.many2one.info[field.name].table}}/detail/{{val[field.name]}}">
+							{{val[field.name] | strcustom:table.many2one[field.name]:field.displayType}}
+							</a>
+							</span>
+							<span ng-switch-when="2">{{val[field.name] | strcustom:field.displayValue:field.displayType}}</span>
+							<span ng-switch-default>{{val[field.name]}}</span>
+						  </span>
+				        </td>
+				        <td><a href="#/{{bucket}}/{{tableName}}/modify/{{val.id}}" has-permission='update'>修改</a>&nbsp;<a href="#/{{bucket}}/{{tableName}}/detail/{{val.id}}" has-permission='read'>详情</a>&nbsp;<a href="javascript:void(0);" ng-click="remove($index)" has-permission='remove'>删除</a>
+				        <span ng-repeat="o2m in table.one2many.info">
+							&nbsp;<a href="#/{{bucket}}/{{tableName}}/o2m/{{val.id}}">{{o2m.desc}}</a>
+						</span>
+						</td>
+		  			</tr>
+	      		</tbody>
+			</table>
+		</div>
+		<div class='paginate' paginate-pages='{{pages}}' current-page='current' data='search' style="zoom: 1; overflow: hidden; padding-bottom: 20px; padding-left: 15px; margin-top: -10px;"></div>
+	</div>
+</div>
+

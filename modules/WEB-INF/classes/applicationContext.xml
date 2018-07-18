@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tool="http://www.springframework.org/schema/tool" xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:cxf="http://cxf.apache.org/core" 
+    xsi:schemaLocation="
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+            http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-3.1.xsd
+            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+            http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+            http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd"
+    default-lazy-init="true">
+    
+    <context:property-placeholder location="classpath:system.properties" />
+    
+    <context:component-scan base-package="cn.uncode.baas.server"/> 
+    
+    <context:annotation-config />
+    
+    <!-- =================================== --> 
+    <!-- data source -->
+    <!-- =================================== -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+		<property name="driverClassName" value="${sql.driverClassName}"></property>  
+		<property name="url" value="${sql.url}"></property>  
+		<property name="username" value="${sql.username}"></property>  
+		<property name="password" value="${sql.password}"></property>
+	</bean>
+	
+	<bean id="dynamicDataSource" class="cn.uncode.baas.server.database.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+         <property name="dataSource" ref="dynamicDataSource" /> 
+    </bean>
+	
+	<!-- =================================== --> 
+    <!-- uncode dal layer -->
+    <!-- =================================== -->
+	<bean id="cacheManager" class="cn.uncode.dal.cache.support.SimpleCacheManager"></bean>
+    
+    <bean id="resolveDatabase" class="cn.uncode.dal.descriptor.db.impl.SimpleResolveDatabase">
+        <property name="dataSource" ref="dynamicDataSource" />
+        <property name="cacheManager" ref="cacheManager" />
+    </bean>
+    
+    <bean id="commonJdbcSupport" class="cn.uncode.dal.spring.jdbc.CommonJdbcSupport">
+        <property name="dataSource" ref="dynamicDataSource" />
+    </bean>
+    
+    <bean id="baseDAL" class="cn.uncode.dal.spring.jdbc.SpringJDBCDAL">
+        <property name="cacheManager" ref="cacheManager" />
+        <property name="commonJdbcSupport" ref="commonJdbcSupport" />
+        <property name="resolveDatabase" ref="resolveDatabase" />
+    </bean>
+    
+    <bean id="defaultDB" class="cn.uncode.dal.mongo.MongoDataBase">
+ 		<property name="host" value="${mongo.host}" />
+ 		<property name="port" value="${mongo.port}" />
+ 		<property name="db" value="${mongo.db}" />
+ 		<property name="username" value="${mongo.username}" />
+ 		<property name="password" value="${mongo.password}" />
+ 	</bean>
+    
+    <bean id="dynamicMongoDB" class="cn.uncode.baas.server.database.DynamicMongoDB">
+    	<property name="defaultDB" ref="defaultDB" />
+    </bean>
+    
+    <bean id="mongoDAL" class="cn.uncode.dal.mongo.MongoDAL">
+    	<property name="database" ref="dynamicMongoDB"></property>
+    </bean>
+    
+    <!-- =================================== --> 
+    <!-- other -->
+    <!-- =================================== -->
+    <bean id="resterService" class="cn.uncode.baas.server.service.impl.ResterService">
+     	<property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <bean id="httpClientFactory" class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+        <property name="connectTimeout" value="${rest.connectTimeout}" />
+        <property name="readTimeout" value="${rest.readTimeout}" />
+    </bean>
+    
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="httpClientFactory" />
+    </bean>
+    
+    <!-- =================================== --> 
+    <!-- monitoring -->
+    <!-- =================================== -->
+    <bean id="facadeMonitoringAdvisor" class="net.bull.javamelody.MonitoringSpringAdvisor">  
+	    <property name="pointcut">  
+	        <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">  
+	            <property name="pattern" value="cn\.uncode\.baas\.server\..*" />  
+	        </bean>  
+	    </property>  
+	</bean>
+
+</beans>

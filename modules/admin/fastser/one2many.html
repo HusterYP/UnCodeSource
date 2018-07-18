@@ -1,0 +1,52 @@
+
+    <div class="span2">
+      <!--Sidebar content-->
+        <div style="padding: 8px 0;" class="well">
+	        <ul class="nav nav-list" ng-repeat="tab in tables">
+				<li><a href="#/{{bucket}}/{{tab.name}}">{{tab.name}}</a></li>
+	        </ul>
+	    </div>
+    </div>
+    <div class="span10">
+	<form class="form-horizontal">
+      <!--Body content-->
+	    <fieldset>
+	          <legend>详情</legend>
+	          
+			  <span ng-repeat="field in table.info">
+					<span ng-switch="field.displayType">
+						<span ng-switch-when="-1"></span>
+						<span ng-switch-when="3">{{field.aliasName}} : {{entity[field.name] | strcustom:table.many2one[field.name]:field.displayType}}<br/></span>
+						<span ng-switch-when="2">{{field.aliasName}} : {{entity[field.name] | strcustom:field.displayValue:field.displayType}}<br/></span>
+						<span ng-switch-default>{{field.aliasName}} : {{entity[field.name]}}<br/></span>
+					</span>
+			  </span>
+
+			  <table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>标识</th>
+						<th>名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="val in list | filter:query | orderBy:orderProp">
+						<td>{{val.id}}</td>
+						<td>{{val.name}}</td>
+						<td>
+							<span ng-switch="val.flag">
+								<span ng-switch-when="true"><a href="javascript:void(0);" ng-click="delOne2many($index)">解绑</a></span>
+								<span ng-switch-when="false"><a href="javascript:void(0);" ng-click="addOne2many($index)">绑定</a></span>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	    </fieldset>
+	</form>
+    </div>
+
+
+
+

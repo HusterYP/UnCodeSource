@@ -1,0 +1,1589 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Uncode应用列表-Uncode移动后端云</title>
+<meta name="keywords" content="uncode,移动后端云,后端云,移动云服务,移动云存储,baas,MBaas,backend as a service">
+<meta name="description" content="Uncode移动后端云,专注于移动应用后端云服务,专业的MBaaS服务商,提供免费的后端云服务,帮助移动应用快速定制自已的后端业务逻辑。">
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../css/global.css">
+<link rel="stylesheet" type="text/css" href="../css/list.css">
+<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.8.18.custom.css">
+<link rel="stylesheet" type="text/css" href="../css/admin.css">
+<link rel="stylesheet"  type="text/css" href="../css/restuser.css"/>
+<link rel="stylesheet" href="../css/resttimer.css" />
+<link rel="stylesheet" href="../css/jquery.alert.css" />
+<link rel="stylesheet" href="../css/datetimepicker.css" />
+
+<title>小葱rest服务平台</title>
+
+</head>
+<body>
+    <div class="top" id="top">
+        <div id="logodiv">
+            <a href="javascript:;"> <img src="../images/logo.png" alt="" class="logo" />
+            </a>
+        </div>
+        <div class="menu">
+            <a href="javascript:;" class="yymb"> <span></span> 应用面板
+            </a> <a href="http://www.uncode.cn/doc/index.html" class="kfwd"> <span></span> 开发文档
+            </a> <a href="account.html" class="zhgl"> <span></span> 帐户管理
+            </a> <a href="javascript:;" class="xx"> <span></span> 消息
+            </a> <a href="javascript:;" class="tc"> <span></span> 退出
+            </a>
+        </div>
+        <p class="tx">
+            <img src="../images/user.gif" /> <span id="userName"></span>
+        </p>
+        <div class="select" id="select">
+            <span>请选择</span>
+        </div>
+        <div class="option" style="display: none;"></div>
+        <script type="text/template" id="appOptionTem">
+			<a href="javascript:;"><%=name%></a>
+	</script>
+    </div>
+    <!--左Tab-->
+    <div id="appListDiv" class="sy_bg">
+        <div class="sy_left">
+            <div class="sjgl">
+                <strong></strong>
+                <p>
+                    • 应用数（个） <br /> <b><span id=appAmount></span></b>
+                </p>
+                <p>
+                    • API请求数（次） <br> <b>0</b>
+                </p>
+                <p>
+                    （注意：以上仅为统计数据，可能存在延迟 <br>或误差，不影响使用。）
+                </p>
+            </div>
+            <div class="lxkf">
+                <strong></strong>
+                <p>
+                    邮箱： <a href="mailto:support@uncode.cn" style="top: 0px;">support@uncode.cn</a><br/>
+                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2683926436&amp;site=qq&amp;menu=yes" style="padding:2px 0 2px 0;">
+                        <img border="0" src="http://wpa.qq.com/pa?p=2:2683926436:42" alt="点击这里给我发消息" title="点击这里给我发消息"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </p>
+            </div>
+            <div class="sdkxz">
+                <!-- <strong></strong> -->
+                <!-- <a id="clearCache" href="javascript:;">清楚缓存</a> -->
+            </div>
+        </div>
+        <!-- 搜索框 -->
+        <div class="sy_right">
+            <div class="right_top">
+                <a href="javascript:;" id="new_restapp"></a>
+                <div class="sscx">
+                    <form action="javascript:;" method="GET">
+                        <input type="text" name="s" class="s" placeholder="搜索你的应用" style="color: rgb(170, 171, 171);">
+                        <input type="submit" class="submitbutton" value="">
+                    </form>
+                </div>
+            </div>
+            <div class="right_down clearfix">
+                <ul id="restAppUl">
+
+                    <script type="text/template" id="restItem-template">
+                    	<a href="javascript:; "   title="点击查看详情">
+							<img src="../images/app-icon.png" name="yymbxq" class="appIcon" title="点击查看详情" ></a>
+                        <p>
+                            <strong><a href="javascript:;" name="yymbxq" ><%= name%></a></strong>
+							<br> 创建时间：<%="undefined" == typeof (createTime)||!createTime? "" :createTime%>
+                            <span>
+								<a href="javascript:;" class="m1" name="secretKey">应用密钥</a>
+								<a href="javascript:;" class="m2" name="restAdmin">数据管理</a> 
+								<a href="javascript:;" class="m3" name="restUser">用户管理</a>
+								<a href="javascript:;" class="m4" name='appSet'>应用设置</a>
+							</span>
+                        </p>
+						</script>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" tabindex="-1"
+        role="dialog" aria-labelledby="ui-dialog-title-new-app-dialog"
+        style="display: none; z-index: 1000; outline: 0px; position: absolute;">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span class="ui-dialog-title" id="ui-dialog-title-new-app-dialog"> 创建应用 <span id="dialog_loading"></span>
+            </span> <a href="javascript:;" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <span
+                class="ui-icon ui-icon-closethick">close</span>
+            </a>
+        </div>
+        <div id="new-app-dialog" class="new-app-dialog ui-dialog-content ui-widget-content">
+            <p id="msg" class="msg"></p>
+            <div class="dialog">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="first">
+                                <div style="width: 120px;">
+                                    <label class="must_write">*</label> 应用名称:&nbsp;&nbsp;
+                                </div>
+                            </td>
+                            <td>
+                                <div class="app-field">
+                                    <input type="text" name="appName" id="appName" class="input" value=""
+                                        maxlength="100">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="first">
+                                <div style="width: 120px;">
+                                    <label class="must_write">*</label> bucket:&nbsp;&nbsp;
+                                </div>
+                            </td>
+                            <td>
+                                <div class="app-field">
+                                    <input type="text" name="bucket" id="bucket" class="input" value="" maxlength="100">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="app-msg-send">
+                                    <input type="button" id="submit-save-app" class="blue_btn_01" value="创建应用"
+                                        title="创建应用" alt="创建应用"> <input type="button" id="new-app-dialog-cancel"
+                                        class="cancelbutton" value="取消">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================详情页===================== -->
+    <div id="appDetail" class="appDetail">
+        
+            <div class="yymblb"> <!-------- 左侧导航-------- -->
+                <a href="javascript:;" id="yymbxq_nav"  class="on"  > <span class="bg8"></span> 云端代码</a>
+                 <a href="javascript:;" id="appSet_nav" >       <span class="bg6"></span> 应用设置</a>
+                 <a href="javascript:;" id="secretKey_nav"> <span class="bg1"></span> 应用密钥</a>
+                 <a href="javascript:;" id="restAdmin_nav" > <span class="bg2"></span> 数据管理</a>
+                 <a href="javascript:;" id="restUser_nav" > <span class="bg3"></span>   用户管理</a>
+                 <a href="javascript:;" id="restTimer_nav" > <span class="bg9"></span>   定时任务</a>
+                 <!--<a href="javascript:;" > <span class="bg4"></span>   应用分析</a>
+                 <a href="javascript:;" > <span class="bg11"></span> 应用官网</a>
+                 <a href="javascript:;" > <span class="bg5"></span>    应用上传</a>-->
+            </div>
+        <div class="yymbbg">
+
+			
+            <!----------------- 云端代码 -------------->
+            <div id="yymbxq" class="yymbxq">  
+                <div class="yymbxq_left">
+
+                    <div class="yyb">
+                        <span>方法名</span> <a id="addMethod" class="tjb new_code" href="javascript:;">添加</a> <br />
+                    </div>
+                    <ul id="methodUl">
+                    </ul>
+                    <script type="text/template" id="methodItem-template"> 
+                        <a href="javascript:;" class="methodLia" >
+                        <span  class="method_name"  title="<%= name%>">
+							<%= name%> 
+						</span>
+                        <span  class="method_option" >
+							 [<%= option%>]
+						</span>
+                        <div class="method_delete" title="删除方法" /></div>
+                        <div class="method_edit" title="属性设置" /></div>
+                        </a>
+					</script>
+					</div>
+
+					<!--方法属性设置弹出框-->
+		        	<div id="new-code-dialog" class="new-code-dialog" style="display: none;">
+		           		 <script type="text/template" id="methodCtx-template"> 
+		                    	<div id="code_msg" class="msg"></div> 
+		                    
+		                    	<div class="dialog">
+		                        <table>
+		                            <tr style="display: none;">
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>bucket:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <input  id="method_bucket"  class="filedInput" maxlength="100" value="<%= bucket%>" readonly="readonly"  /></td>
+		                            </tr>
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>方法名:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <input  id="method_name" class="filedInput" maxlength="100"  value="<%=name%>" /></td>
+		                            </tr>
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>请求方式:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <select  id="method_option" class="filedInput"  >
+		                                       <% _.each(optionTypeArr, function(optionType) {
+													if("undefined" == typeof (option) || !option  ){%>
+														<option value="<%=optionType%>"><%=optionType%></option>
+													<% return ; }
+													if(optionType==option){%>
+		                                        		<option value="<%=optionType%>" selected="selected"><%=optionType%></option>
+													<%}else{ %>
+		                                        		<option value="<%=optionType%>"><%=optionType%></option>
+													<%} });%></select>
+		                                 </td>
+		                            </tr>
+		
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>参数类型:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <select  name="paramType" id="method_paramType" class="filedInput"  >
+		                                       <% _.map(paramTypeMap, function(value,key) {
+													if("undefined" == typeof (paramType) || !paramType  ){%>
+														<option value="<%=key%>"><%= value%></option>
+													<% return ; }
+													if(paramType==key){%>
+		                                        		<option value="<%=key%>" selected="selected"><%=value%></option>
+													<%}else{ %>
+		                                        		<option value="<%=key%>"><%=value%></option>
+													<%} });%></select>
+		                                 </td>
+		                            </tr>
+		
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>版本号:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <input    id="method_version" class="filedInput" maxlength="100" value="<%=version%>" /></td>
+		                            </tr>
+		
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>缓存:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+		                                    <input    id="method_seconds" class="filedInput" maxlength="100"  value="<%=seconds%>"/></td>
+		                            </tr>
+		 
+		                            <tr>
+		                                <td class="label">
+		                                    <div  ><label class="must_write">* </label>状态:&nbsp;&nbsp;</div>
+		                                </td >
+		                                <td class="filed">
+											<% _.each(statusArr, function(item) {
+												if(item==1 ){%>
+		    										<label> <input type="radio" name="method_status" value="1" <%if(!status||status==1){%>checked="checked"<%}%> />可用  </label>
+												<%}else{%> 
+		    										<label> <input type="radio" name="method_status" value="0"<%if(status==0){%>checked="checked"<%}%> />禁用 </label>
+												<%}
+		
+											 });%></td>
+		                            </tr>
+		                            <tr>
+		                                <td></td>
+		                                <td>
+		                                    <div class="app-msg-send">
+		                                      <input type="button" id="submit-save-code" class="blue_btn_01" value="确认创建" title="确认创建" alt="确认创建"/>
+		                                      <input type="button" id="new-code-dialog-cancel" class="cancelbutton" value="取消"></div>
+		                                </td>
+		                            </tr>
+		                        </table>
+		                    </div>
+						</script>
+		        	</div>
+                    <!--   field-dialog  -->
+                    <div id="edit-field-dialog" class="edit-field-dialog" style="display: none;">
+                        <div id="edit-field-msg" class="edit-field-hint">双击可以进行修改</div>
+                        <table class="edit-field-table">
+                            <tr>
+                                <th>字段名称</th>
+                                <th>是否必填</th>
+                                <th>正表达式</th>
+                                <th>
+                                    <!--操作  -->
+                                </th>
+                            </tr>
+
+                        <script type="text/template" id="fieldCtx-template"> 
+		                	<td name="fieldName"> 
+								<span name="fieldName"> <%= fieldName %></span> 
+								<input name="fieldName" value="<%= fieldName %>" />  </td>
+		                	<td> 
+								<span> <%= request%></span>
+								<select name="request" >
+									<option value="0" <%=request==0?"selected= 'selected'":""%>>选填</option>
+									<option value="1" <%=request==1?"selected= 'selected'":""%>>必填</option>
+								</select>
+							
+							</td>
+		                	<td>
+								<span> <%= regular%></span>
+								<input name="regular"  value="<%= regular %>" />  
+		                	<td>
+		                        <input 	type="image" class="fieldDelete" src="../images/reddelete.png"/>
+		                        <input 	type="image" class="fieldSave" src="../images/green_checkmark.png"/>
+							</td>
+            			</script>
+                    </table>
+                        <div class="tianjia">
+                            <a id="add_params" href="javascript:;"> <img src="../images/jiahao.gif">再添加一个
+                            </a>
+                        </div>
+                        <input type="button" id="submit-save-field" class="blue_btn_01" value="完成" title="完成修改" alt="完成">
+                    </div>
+                
+                <!--   权限设置acl-setting-dialog  -->
+                <div id="methodAcl-setting-dialog"  class="acl-setting-dialog" style="display: none;">
+                    <div id="acl-setting-alert" class="alert danger">msg</div>
+                     <ul class="acl-nav" ></ul>
+                    <table>
+                        <tr id="restGroup" class="form-group">
+                        	<td  class="bunch_label" >Group : </td> 
+                            <td id="groupList" data-aclType="group" class="groupList">
+                            <script type="text/template" id="restGroup-template">
+								<input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+							</script> 
+                            </td>
+                        </tr >
+                        <tr id="restRole" class="form-group">
+                        	<td  class="bunch_label" >Role : </td> 
+                            <td id="roleList" data-aclType="role" class="groupList">
+                            <script type="text/template" id="restRole-template">
+								<input id="restRole_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="restUserInfo" class="form-group">
+                        	<td  class="bunch_label" >User : </td> 
+                            <td id="userList" data-aclType="user" class="groupList">
+                            <script type="text/template" id="restUserInfo-template">
+								<input id="userInfo_<%=id%>" type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="floor">
+                        <button id="subAddAcl" class="btn addAcl">提  交 </button>
+                        <button id="cancelAddAcl" class="btn cancel">取 消 </button>
+                      </div>
+                </div>
+                
+                <div class="yymbxq_right">
+                        <div class="yddm">
+                            <div class="reqURL_bg" style="width: 98%; padding-left: 2%;">
+                                <span id="reqURL" class="reqURL" ></span>
+                                <input id="copyURL" type="button"  class="copyURL" value=" 复制链接">
+                            </div>
+
+                            <div class="bannertips bannertips_succ" id="info_success"
+                                style="display: none; top: 38px; height: 37px; width: 100%;"></div>
+                            <div class="bannertips bannertips_error" id="info_error"
+                                style="display: none; top: 38px; height: 37px; width: 100%;"></div>
+							<!--代码编辑框-->
+                            <div class="vali_code">
+                                <div class="vali_code_title">
+                                    <a href="javascript:;" id="editor_field_setting">参数设置</a> 
+                                    <a href="javascript:;" id="acl_setting">权限设置</a> 
+                                    <a href="javascript:;" class="vali_code_right" id="editor_code_save">保存</a> 
+                                    <a href="javascript:;" class="vali_code_right" id="editor_code_format">格式化</a> 
+                                </div>
+                                <textarea id="source" rows="30" cols="160" style="display: none;"></textarea>
+                                <div class="vali_code_main">
+                                    <div id="editor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!--请点击方法查看方法内容.--&gt</div>
+                                </div>
+
+                                <div class="vali_code_test" >
+                                    <div class="sub_title_normal">云端代码调试</div>
+                                    <div class="title_help_text_error">请填写request参数和对应值</div>
+
+                                    <table cellspacing="0" id="m_list" style="width: 640px;">
+                                        <tbody>
+                                        	<div class="putparame" style="display: none;">
+                                        		<label>ID</label>
+                                        		<input type="text" value="" style="margin-left: 57px;">
+                                        	</div>
+                                            <tr>
+                                                <td>参数名：</td>
+                                                <td class="second"><input type="text" value=""></td>
+                                                <td>参数值：</td>
+                                                <td class="second"><input type="text" value=""><input
+                                                    type="hidden"></td>
+                                                <td class="codetd">
+													<a style="display: none;" class="del_market" href="javascript:;">
+                                                    	<img src="../images/reddelete.png" id="deletepara">
+													</a>
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                <td>参数名：</td>
+                                                <td class="second"><input type="text" value=""></td>
+                                                <td>参数值：</td>
+                                                <td class="second"><input type="text" value=""><input
+                                                    type="hidden"></td>
+                                                <td  class="codetd"><a style="display: none;"
+                                                    class="del_market" href="javascript:;">
+                                                    <img src="../images/reddelete.png" id="deletepara"></a>
+                                                </td>
+                                            </tr>
+                                             <tr class="cl"style="display: none">
+                                                <td>参数名：</td>
+                                                <td class="second"><input type="text" value=""></td>
+                                                <td>参数值：</td>
+                                                <td class="second"><input type="text" value=""><input
+                                                    type="hidden"></td>
+                                                <td  class="codetd"><a style="display: none;"
+                                                    class="del_market" href="javascript:;"><img
+                                                        src="../images/reddelete.png" id="deletepara"></a></td>
+                                            </tr>
+                                        </tbody>                                
+                                    </table>
+                                    <div class="tianjia" id="add_params1">
+                                        <a id="add_params" href="javascript:;" style="display: block;">
+                                        	<img src="../images/jiahao.gif">再添加一个</a>
+                                    </div>                                   
+                                    <textarea class="textareacss" id="paramstext" style="display: none;"></textarea>
+                                    <div class="vali_code_test_submit">
+                                        <input type="submit" value="发送请求" title="发送请求" alt="发送请求" class="blue_btn_01"
+                                            id="send_request"><a id="hidecode">隐藏response</a>
+                                    </div>
+                                    <div id="method_response" style="display: none;">
+                                        <pre class="prettyprint prettyprinted" >
+                                    <code class="showcode" >
+                                    </code>
+                                		</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+            <!------------ 应用设置 ---------------->
+            <div id="appSet" class="appSet">
+                <script type="text/template" id="restDtail-template">
+                <div class="yyszbg"> 
+                <div class="yysz yysz_wrap">
+                <div id="msg_success" class="bannertips bannertips_succ" style="display: none;top: 2px;width: 38%;"></div>
+                <div id="msg_error" class="bannertips bannertips_error" style="display: none;top: 2px;width: 38%;"></div>
+                <p class="title"><strong>应用设置</strong></p>
+                    <table>
+                                <tr>
+                                    <td>应用名称：</td>
+                                    <td class="second">
+                                    <input name="rest_name" id="rest_name" class="yymc" value="<%=name%>" maxlength="20" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>应用标识：</td>
+                                    <td class="second">
+                                    <input name="rest_bucket" id="rest_bucket" class="yymc" value="<%=bucket%>"  type="text" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td>创建时间：</td>
+                                    <td class="second">
+                                            <%="undefined" == typeof (createTime)||!createTime? "" :createTime%>                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>数据库类型：</td>
+                                    <td class="second">
+                                         <select id="rest_dbType" name="rest_dbType">
+                                         <%if("undefined" == typeof(dbType)||!dbType){%>
+                                            <option value="0"> 默认 </option>
+                                            <option value="1"> mysql </option>
+                                            <option value="2"> mongodb </option>
+                                            <%} else{%>
+                                            <option value="0" <%=dbType==0?"selected= 'selected'":""%>>默认</option>
+                                            <option value="1" <%=dbType==1?"selected= 'selected'":""%>>mysql</option>
+                                            <option value="2" <%=dbType==2?"selected= 'selected'":""%>>mongodb</option>
+                                        <%}%>
+                                        </select>                                   
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td>数据库状态：</td>
+                                    <td class="second">                     
+                                        <select id="rest_status" name="rest_status">
+                                         <%if("undefined" == typeof(status)||!status){%>
+                                            <option value="0" >禁用</option>
+                                            <option value="1" >可用</option>
+                                            <%} else{%>
+                                            <option value="0" <%=status==0?"selected= 'selected'":""%>>禁用</option>
+                                            <option value="1" <%=status==1?"selected= 'selected'":""%>>可用</option>
+                                        <%}%>
+                                        </select>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td>数据库驱动：</td>
+                                    <td class="second"> 
+                                    <input name="rest_dbDriverClass" id="rest_dbDriverClass" class="yymc" value=" <%="undefined" == typeof (dbDriverClass)||!dbDriverClass? "" :dbDriverClass%> " maxlength="20" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>数据库地址：</td>
+                                    <td class="second">
+                                    <input name="rest_dbURL" id="rest_dbURL" class="yymc" value="<%="undefined" == typeof (dbURL)||!dbURL? "" :dbURL%>"  type="text"></td>
+                                </tr>
+                                                        <tr>
+                                    <td>数据库名称：</td>
+                                    <td class="second">
+                                    <input name="rest_dbUsername" id="rest_dbUsername" class="yymc" value="<%="undefined" == typeof (dbUsername)||!dbUsername? "" :dbUsername%>" type="text"></td>
+                                </tr>
+                                  
+                                <tr>
+                                    <td>
+                                    <input class="sccx" value="修    改" type="button"></td>
+                                    <td class="second"></td>
+                                </tr>
+                         </table>
+                      </div>
+                  </div>
+            </script>
+        </div>
+            
+            <!-----------  应用密钥---------------->
+            <div id="secretKey" class="secretKey">
+            <script type="text/template" id="secretKeyCont-template">
+            <div class="secretKeyCont">
+            <p><strong>应用密钥</strong></p>
+                <table>
+                    <tbody><tr>
+                        <td class="first">应用名称:</td>
+                        <td><input type="text" class="aid" id="name_text" value="<%=name%>" disabled=""></td>
+                        <td><input type="button" id="name_copy" class="button" value="复制"></td>
+                    </tr>
+                    <tr>
+                        <td class="first">应用标识:</td>
+                        <td><input type="text" class="rak"  id="bucket_text" value="<%=bucket%>" disabled=""></td>
+                        <td><input type="button" id="bucket_copy" class="button" value="复制"></td>
+                    </tr>
+                    <tr>
+                        <td class="first">应用密钥:</td>
+                        <td><input type="text" class="mk" id="secretKey_text" value="<%=secretKey%>" disabled=""></td>
+                        <td><input type="button" id="secretKey_copy" class="button" value="复制"></td>
+                    </tr>
+                </tbody>
+              </table>
+              </div>
+            </script>
+            </div>
+        
+            <!----------- 数据管理---------------->
+        <div id="restAdmin" class="restAdmin">
+                <div class="restAdmin_left">
+                    <div class="yyb">
+                        <span class="title">应用表   <a class="addTable">增加表</a></span>
+                    </div>
+                    <ul id="table_list">
+                         <script type="text/template" id="tabLi-template">
+                        <a href="javascript:;" class="tab_dtl"> 
+                            <span class="icon"> </span> <span class="name"><%=name%></span> <span class="count"></span>
+                            <div class="table_delete" title="删除" /></div>
+                        </a>
+                      </script>
+                    </ul>
+                </div>
+                
+            <div class="restAdmin_right">
+                <div id="tabOption" class="tabOption">
+                    <a href="javascript:;" id="edit" class="tabOption-left">编  辑</a>
+                    <a href="javascript:;" id="addtablerow" class="tabOption-left">增加一列</a>
+                    <a href="javascript:;" id="deltablerow" class="deltablerow-left"style="display: none;">删除该列</a>
+                    <a href="javascript:;" id="table_acl" class="tabOption-left">表权限</a>
+                    <a href="javascript:;" id="field_acl" class="tabOption-left">字段权限</a>
+                    <a href="javascript:doTest();" style="background: #66FFFF;width: 130px;float: left;">数据管理后台入口</a>
+                    <a href="javascript:;" id="cancel" class="cancel">取  消</a>
+                    <a href="javascript:;" id="save" class="save">保  存</a>
+                    <a href="javascript:;" id="cancel2" class="cancel">取消添加</a>
+                    <a href="javascript:;" id="save2" class="save">保存列</a>
+                 </div>
+                 
+                <div class="tabBg">
+                    <div class="tabCtx">
+                        <table>
+                             <thead>
+                                <tr id="restAdminFieldsTr">
+                                    <th class="fieldTh"><input class="th_chk" type="checkbox" /></th>
+                                      <script type="text/template" id="tabOriginal-template">
+                                            <div class="fieldName"><%=name%></div>
+                                                <div style="vertical-align:text-top" class="fieldType"><%=type%></div>
+                                                <div name="fieldSort" class="fieldSort"></div>
+                                      </script>
+                                </tr>
+                             </thead>
+                              <tbody id="restAdminCtntsTb">
+                                      <script type="text/template" id="tabCtntTr-template">
+                                    <td style="text-align:center">
+                                       <input id="td_chk_<%=id%>"  class="td_chk" type="checkbox" />   
+                                    </td>
+                                      </script>
+                                      <script type="text/template" id="tabCtntTd-template">
+                                      <td style="text-align:center">
+                                          <% if(key=="request"){%>
+                                                 <select data-key="<%=key%>"   class="field-edit">
+                                                    <option value ="0">false</option>
+                                                 <% if(value==true){%>
+                                                    <option value ="1" selected="true">true</option>
+                                                 <%}else{%>
+                                                    <option value ="1" >true</option>
+                                                  <%}%>
+                                                  </select>
+                                            <%}else  if(key=="type"){ %>
+                                                 <select data-key="<%=key%>"   class="field-edit">
+                                                   <% _.map(SqlType,function(v,k){
+                                                        if(value==v){%>
+                                                             <option value ="<%=k%>" selected="selected"> <%=v%> </option>
+                                                        <% return ;}else{%>
+                                                             <option value ="<%=k%>"> <%=v%> </option>
+                                                       <% }});%>
+                                                  </select>
+											<%}else  if(key=="displayType"){ %>
+                                                 <select data-key="<%=key%>"   class="field-edit">
+                                                   <% _.map(displayTypeMap,function(v,k){
+                                                        if(value==v){%>
+                                                             <option value ="<%=k%>" selected="selected"> <%=v%> </option>
+                                                        <% return ;}else{%>
+                                                             <option value ="<%=k%>"> <%=v%> </option>
+                                                       <% }});%>
+                                                  </select>
+                                            <%}else  if(key=="formType"){ %>
+                                                 <select data-key="<%=key%>"   class="field-edit">
+                                                   <% _.map(formTypeMap,function(v,k){
+                                                        if(value==v){%>
+                                                             <option value ="<%=k%>" selected="selected"> <%=v%> </option>
+                                                        <% return ;}else{%>
+                                                             <option value ="<%=k%>"> <%=v%> </option>
+                                                       <% }});%>
+                                                  </select>
+                                            <%}else  if(key=="searchType"){ %>
+                                                 <select data-key="<%=key%>"   class="field-edit">
+                                                   <% _.map(searchTypeMap,function(v,k){
+                                                        if(value==v){%>
+                                                             <option value ="<%=k%>" selected="selected"> <%=v%> </option>
+                                                        <% return ;}else{%>
+                                                             <option value ="<%=k%>"> <%=v%> </option>
+                                                       <% }});%>
+                                                  </select>
+                                            <%}else{%>
+                                                  <input data-key="<%=key%>" class="field-edit" value='<%=value%>' /> 
+                                            <%}%>
+                                            <span class="field-val"><%=value%></span>
+                                       </td>
+                                      </script>
+                                      
+                             </tbody>
+                        </table>
+                    </div>
+                    <div class="pageControl"> 分页 </div>
+                </div>
+                
+	           <!--  table权限设置  tableAcl-setting-dialog  -->
+                <div id="tableAcl-setting-dialog"class="acl-setting-dialog" style="display: none;">
+                    <div id="tableAcl-setting-alert" class="alert danger">msg</div>
+                        <ul class="acl-nav" >
+                            <li data-handle="write" class="active"><a>Write</a></li>
+                            <li data-handle="read"><a >Read</a></li>
+                            <li data-handle="insert" ><a >Insert</a></li>
+                            <li data-handle="update"  ><a >Update</a></li>
+                            <li data-handle="remove"  ><a >Remove</a></li>
+                        </ul>
+                        
+	                    <table id="tab-acl-write" >
+	                        <tr id="tab_restGroup" class="form-group">
+	                            <td  class="bunch_label" >Group : </td> 
+	                            <td id="tab_write_groupList"  data-aclType="group"  class="groupList">
+	                            <script type="text/template" id="restGroup-template">
+	                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+	                            </script> 
+	                            </td>
+	                        </tr >
+	                        <tr id="tab_restRole" class="form-group">
+	                            <td  class="bunch_label" >Role : </td> 
+	                            <td id="tab_write_roleList"  data-aclType="role"  class="groupList">
+	                            <script type="text/template" id="tab_restRole-template">
+	                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+	                            </script> 
+	                            </td>
+	                        </tr>
+	                        <tr id="tab_restUserInfo" class="form-group">
+	                            <td  class="bunch_label" >User : </td> 
+	                            <td id="tab_write_userList"  data-aclType="user"  class="groupList">
+	                            <script type="text/template" id="tab_restUserInfo-template">
+	                                <input   type="checkbox" value="<%= username%>"> <%= username%>
+	                            </script> 
+	                            </td>
+	                        </tr>
+	                    </table>
+                        <table id="tab-acl-read" style="display: none;">
+                        <tr id="tab_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="tab_read_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="tab_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="tab_read_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="tab_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="tab_read_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="tab-acl-insert" style="display: none;">
+                        <tr id="tab_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="tab_insert_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="tab_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="tab_insert_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="tab_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="tab_insert_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="tab-acl-update" style="display: none;">
+                        <tr id="tab_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="tab_update_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="tab_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="tab_update_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="tab_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="tab_update_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="tab-acl-remove" style="display: none;">
+                        <tr id="tab_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="tab_remove_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="tab_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="tab_remove_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="tab_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="tab_remove_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="floor">
+                        <button id="tab_subAddAcl" class="btn addAcl">提  交 </button>
+                        <button id="tab_cancelAddAcl" class="btn cancel">取 消 </button>
+                    </div>
+                </div>
+                <!--  Field权限设置  fieldAcl-setting-dialog  -->
+                <div id="fieldAcl-setting-dialog"class="acl-setting-dialog" style="display: none;">
+                    <div id="tableAcl-setting-alert2" class="alert danger">msg</div>
+                        <ul class="acl-nav" >
+                            <li data-handle="write" class="active"><a>Write</a></li>
+                            <li data-handle="read"><a >Read</a></li>
+                            <li data-handle="insert" ><a >Insert</a></li>
+                            <li data-handle="update"  ><a >Update</a></li>
+                            <li data-handle="remove"  ><a >Remove</a></li>
+                        </ul>
+                        
+	                    <table id="fie-acl-write" >
+	                        <tr id="fie_restGroup" class="form-group">
+	                            <td  class="bunch_label" >Group : </td> 
+	                            <td id="fie_write_groupList"  data-aclType="group"  class="groupList">
+	                            <script type="text/template" id="restGroup-template">
+	                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+	                            </script> 
+	                            </td>
+	                        </tr >
+	                        <tr id="fie_restRole" class="form-group">
+	                            <td  class="bunch_label" >Role : </td> 
+	                            <td id="fie_write_roleList"  data-aclType="role"  class="groupList">
+	                            <script type="text/template" id="tab_restRole-template">
+	                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+	                            </script> 
+	                            </td>
+	                        </tr>
+	                        <tr id="fie_restUserInfo" class="form-group">
+	                            <td  class="bunch_label" >User : </td> 
+	                            <td id="fie_write_userList"  data-aclType="user"  class="groupList">
+	                            <script type="text/template" id="tab_restUserInfo-template">
+	                                <input   type="checkbox" value="<%= username%>"> <%= username%>
+	                            </script> 
+	                            </td>
+	                        </tr>
+	                    </table>
+                        <table id="fie-acl-read" style="display: none;">
+                        <tr id="fie_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="fie_read_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="fie_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="fie_read_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="fie_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="fie_read_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="fie-acl-insert" style="display: none;">
+                        <tr id="fie_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="fie_insert_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="fie_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="fie_insert_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="fie_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="fie_insert_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="fie-acl-update" style="display: none;">
+                        <tr id="fie_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="fie_update_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="fie_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="fie_update_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="fie_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="fie_update_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table id="fie-acl-remove" style="display: none;">
+                        <tr id="fie_restGroup" class="form-group">
+                            <td  class="bunch_label" >Group : </td> 
+                            <td id="fie_remove_groupList"  data-aclType="group"  class="groupList">
+                            <script type="text/template" id="restGroup-template">
+                                <input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr >
+                        <tr id="fie_restRole" class="form-group">
+                            <td  class="bunch_label" >Role : </td> 
+                            <td id="fie_remove_roleList"  data-aclType="role"  class="groupList">
+                            <script type="text/template" id="tab_restRole-template">
+                                <input  type="checkbox" value="<%=name%>"> <%=name%>
+                            </script> 
+                            </td>
+                        </tr>
+                        <tr id="fie_restUserInfo" class="form-group">
+                            <td  class="bunch_label" >User : </td> 
+                            <td id="fie_remove_userList"  data-aclType="user"  class="groupList">
+                            <script type="text/template" id="tab_restUserInfo-template">
+                                <input   type="checkbox" value="<%=username%>"> <%=username%>
+                            </script> 
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="floor">
+                        <button id="field_subAddAcl" class="btn addAcl">提  交 </button>
+                        <button id="field_cancelAddAcl" class="btn cancel">取 消 </button>
+                    </div>
+                </div>
+            </div>
+						<!--数据管理新增Dialog-->
+                <div id="addTabeList-dialog" class="addTabeList-dialog">
+                    <div id="errMsgDiv" class="alert danger">err</div>
+                    <div class="list-group-bg">
+                        <ul class="list-group">
+                      <script type="text/template" id="list-group-item-temp">
+                        <img class="list-group-item-img" src="../images/admin/table_2_add.png">
+                        <span class="list-group-item-span"><%= name%></span>
+                      </script>
+                        </ul>
+                    </div>
+					<div class="list-group-bg2">
+					    <table>
+					    <tbody>
+				    	<tr>
+							<td><div class="app-name"><label class="must_write"> * </label>表名:&nbsp;&nbsp;</div></td>
+							<td>
+								<div>
+									<select id="new-table-select">
+										<option value="0">自定义</option>
+										<option value="1">选项一</option>
+										<option value="2">选项二</option>
+									</select>
+								</div>
+							</td>
+							<td><input type="text" style="height: 27px;width: 253px;" maxlength="100" value="" class="name" id="table_name" name="name"></td>
+					    </tr>
+					     </tbody></table>
+					</div>                      
+                      <div class="floor">
+                        <button id="subAddTable"  class="btn addTable">提  交 </button>
+                        <button id="cancelAddTable" class="btn cancel">取 消</button>
+                      </div>
+                </div>
+
+            </div>
+        	<!-----------定时管理---------------->
+            <div id="restTimer" class="yymbxq" style="display: none;">
+				<div class="timer_left" style="height: 581px;">
+					<div class="yyb">
+					<span>计划栏</span>
+						<a id="add_resttimer" class="tjb new_schedule" href="javascript:;">添加</a><br>
+					</div>
+					<ul id="Timerlists">
+						<script type="text/template" id="restTimer-template"> 
+	                        <a href="javascript:;" class="tab_dtl" id="tab_timer">
+	                        <span  class="resttime_lib"  title="<%= name%>">
+								<%= name%> 
+							</span>
+	                        <div class="timer_delete" title="删除计划" /></div>
+	                        </a>
+						</script>
+					</ul>
+				</div>
+					<!--新增计划dialog-->
+				    <div id="new-resttimer-dialog" style="display: none;">  
+			    	 <div id="group-role-alert" class="alert danger"style="display: none;">msg</div>
+			            <table>
+			            	<tr id="resttimer" class="form-group">
+			            		<td class="timer_name">计划名:</td>
+			            		<td class="rolelist">
+				            			<input id="timerList" name="timerList"/>
+			            		</td>
+			            		
+			            	</tr>
+			            </table>
+				        <div class="floorbutton">
+					        <button id="submit-save-resttimer"  class="btn addAcl">提  交 </button>
+					        <button id="new-resttimer-cancel" class="btn cancel">取消</button>
+						</div>
+					</div>
+		<div class="yymbxq_right" style="height: 832px; width: 1528px;">
+			<div class="rwdd">
+				<div class="work_time">
+					<strong>执行方式</strong>
+
+					<div class="work_tab" style="font:red"><a class="">重复</a><a class="active">仅一次</a>
+					</div>
+				</div>
+				<div class="time_field" style="display: block;">
+					<table>
+						<tbody><tr>
+							<td><label>开始时间：</label></td>
+							<td><input type="text" value="" id="time" name="time">
+							</td>
+						</tr>
+					</tbody></table>
+				</div>
+				<div style="display: none;" class="select_field">
+					<table>
+						<tbody><tr>
+							<td><label>间隔：</label></td>
+							<td>
+								<div id="rwddTimeSel1" class="select">
+									<p>每周</p>
+									<ul>
+											<li><a rel="3" href="#">每周</a></li>
+											<li><a rel="6" href="#">天</a></li>
+											<li><a rel="4" href="#">每日</a></li>
+											<li><a rel="5" href="#">每小时</a></li>
+									</ul>
+								</div>
+								<select name="gap" class="rwdd_select">
+									<option value="3"></option>
+								</select></td>
+						</tr>
+						<tr>
+							<td><label>星期几：</label></td>
+							<td>
+								<div id="rwddTimeSel2" class="select">
+									<p>星期一</p>
+									<ul>
+											<li><a rel="0" href="#">星期日</a></li>
+											<li><a rel="1" href="#">星期一</a></li>
+											<li><a rel="2" href="#">星期二</a></li>
+											<li><a rel="3" href="#">星期三</a></li>
+											<li><a rel="4" href="#">星期四</a></li>
+											<li><a rel="5" href="#">星期五</a></li>
+											<li><a rel="6" href="#">星期六</a></li>
+									</ul>
+								</div>
+								<select name="week" class="rwdd_select">
+									<option value="0"></option>
+								</select></td>
+						</tr>
+						<tr>
+							<td class="first"><label>时：</label></td>
+							<td>
+								<div id="rwddTimeSel3" class="select">
+									<p>0</p>
+									<ul>
+											<li><a rel="0" href="#">0</a></li><li><a rel="1" href="#">1</a></li>
+											<li><a rel="2" href="#">2</a></li><li><a rel="3" href="#">3</a></li>
+											<li><a rel="4" href="#">4</a></li><li><a rel="5" href="#">5</a></li>
+											<li><a rel="6" href="#">6</a></li><li><a rel="7" href="#">7</a></li>
+											<li><a rel="8" href="#">8</a></li><li><a rel="9" href="#">9</a></li>
+											<li><a rel="10" href="#">10</a></li><li><a rel="11" href="#">11</a></li>
+											<li><a rel="12" href="#">12</a></li><li><a rel="13" href="#">13</a></li>
+											<li><a rel="14" href="#">14</a></li><li><a rel="15" href="#">15</a></li>
+											<li><a rel="16" href="#">16</a></li><li><a rel="17" href="#">17</a></li>
+											<li><a rel="18" href="#">18</a></li><li><a rel="19" href="#">19</a></li>
+											<li><a rel="20" href="#">20</a></li><li><a rel="21" href="#">21</a></li>
+											<li><a rel="22" href="#">22</a></li><li><a rel="23" href="#">23</a></li>
+									</ul>
+								</div>
+								<select name="hour" class="rwdd_select">
+									<option value="0"></option>
+								</select></td>
+						</tr>
+						<tr>
+							<td><label>分：</label></td>
+							<td>
+								<div id="rwddTimeSel4" class="select">
+									<p>0</p>
+									<ul>
+											<li><a rel="0" href="#">0</a></li><li><a rel="1" href="#">1</a></li>
+											<li><a rel="2" href="#">2</a></li><li><a rel="3" href="#">3</a></li>
+											<li><a rel="4" href="#">4</a></li><li><a rel="5" href="#">5</a></li>
+											<li><a rel="6" href="#">6</a></li><li><a rel="7" href="#">7</a></li>
+											<li><a rel="8" href="#">8</a></li><li><a rel="9" href="#">9</a></li>
+											<li><a rel="10" href="#">10</a></li><li><a rel="11" href="#">11</a></li>
+											<li><a rel="12" href="#">12</a></li><li><a rel="13" href="#">13</a></li>
+											<li><a rel="14" href="#">14</a></li><li><a rel="15" href="#">15</a></li>
+											<li><a rel="16" href="#">16</a></li><li><a rel="17" href="#">17</a></li>
+											<li><a rel="18" href="#">18</a></li><li><a rel="19" href="#">19</a></li>
+											<li><a rel="20" href="#">20</a></li><li><a rel="21" href="#">21</a></li>
+											<li><a rel="22" href="#">22</a></li><li><a rel="23" href="#">23</a></li>
+											<li><a rel="24" href="#">24</a></li><li><a rel="25" href="#">25</a></li>
+											<li><a rel="26" href="#">26</a></li><li><a rel="27" href="#">27</a></li>
+											<li><a rel="28" href="#">28</a></li><li><a rel="29" href="#">29</a></li>
+											<li><a rel="30" href="#">30</a></li><li><a rel="31" href="#">31</a></li>
+											<li><a rel="32" href="#">32</a></li><li><a rel="33" href="#">33</a></li>
+											<li><a rel="34" href="#">34</a></li><li><a rel="35" href="#">35</a></li>
+											<li><a rel="36" href="#">36</a></li><li><a rel="37" href="#">37</a></li>
+											<li><a rel="38" href="#">38</a></li><li><a rel="39" href="#">39</a></li>
+											<li><a rel="40" href="#">40</a></li><li><a rel="41" href="#">41</a></li>
+											<li><a rel="42" href="#">42</a></li><li><a rel="43" href="#">43</a></li>
+											<li><a rel="44" href="#">44</a></li><li><a rel="45" href="#">45</a></li>
+											<li><a rel="46" href="#">46</a></li><li><a rel="47" href="#">47</a></li>
+											<li><a rel="48" href="#">48</a></li><li><a rel="49" href="#">49</a></li>
+											<li><a rel="50" href="#">50</a></li><li><a rel="51" href="#">51</a></li>
+											<li><a rel="52" href="#">52</a></li><li><a rel="53" href="#">53</a></li>
+											<li><a rel="54" href="#">54</a></li><li><a rel="55" href="#">55</a></li>
+											<li><a rel="56" href="#">56</a></li><li><a rel="57" href="#">57</a></li>
+											<li><a rel="58" href="#">58</a></li><li><a rel="59" href="#">59</a></li>
+									</ul>
+								</div>
+								<select name="minute" class="rwdd_select">
+									<option value="0"></option>
+								</select></td>
+						</tr>
+						<tr>
+							<td><label>天：</label></td>
+							<td>
+								<div id="rwddTimeSel5" class="select">
+									<p>0</p>
+									<ul>
+											<li><a rel="0" href="#">0</a></li><li><a rel="1" href="#">1</a></li>
+											<li><a rel="2" href="#">2</a></li><li><a rel="3" href="#">3</a></li>
+											<li><a rel="4" href="#">4</a></li><li><a rel="5" href="#">5</a></li>
+											<li><a rel="6" href="#">6</a></li><li><a rel="7" href="#">7</a></li>
+											<li><a rel="8" href="#">8</a></li><li><a rel="9" href="#">9</a></li>
+											<li><a rel="10" href="#">10</a></li><li><a rel="11" href="#">11</a></li>
+											<li><a rel="12" href="#">12</a></li><li><a rel="13" href="#">13</a></li>
+											<li><a rel="14" href="#">14</a></li><li><a rel="15" href="#">15</a></li>
+											<li><a rel="16" href="#">16</a></li><li><a rel="17" href="#">17</a></li>
+											<li><a rel="18" href="#">18</a></li><li><a rel="19" href="#">19</a></li>
+											<li><a rel="20" href="#">20</a></li><li><a rel="21" href="#">21</a></li>
+											<li><a rel="22" href="#">22</a></li><li><a rel="23" href="#">23</a></li>
+											<li><a rel="24" href="#">24</a></li><li><a rel="25" href="#">25</a></li>
+											<li><a rel="26" href="#">26</a></li><li><a rel="27" href="#">27</a></li>
+											<li><a rel="28" href="#">28</a></li><li><a rel="29" href="#">29</a></li>
+											<li><a rel="30" href="#">30</a></li><li><a rel="31" href="#">31</a></li>
+									</ul>
+								</div>
+								<select name="day" class="rwdd_select">
+									<option value="0"></option>
+								</select></td>
+						</tr>
+					</tbody></table>
+				</div>
+				<div class="select_func">
+					<ul>
+						<li>选择需要执行的云方法名</li>
+						<li>
+							<table>
+									<tr id="timer_tab" class="form-meth">
+											<script type="text/template" id="timermeth-template">
+						            			<a class="methodLia" >
+						            				<span>
+						                        	<input id="method_<%=id%>" name="cloudId" type="checkbox" value="<%=id%>"/> <%=name%>
+						                        	</span>
+						                        <span  class="method_option" >
+													 [<%= option%>]
+												</span>
+						                        </a>
+	                            			</script>	                            									
+									</tr>
+							</table>
+						</li>
+						<li>
+							<a class="submit_a" href="javascript:;">
+								<input type="button"value="保存" id="timer_save" class="timer_save">
+							</a>
+						</li>
+					</ul>
+				</div>
+		</div>
+                    </div>
+			</div><!-- end定时管理 -->
+
+ 	       <!-----------用户管理---------------->
+			<div id="restUser" class="content_sidebar" style="height: 724px;">
+				<!--用户组的dialog-->    
+            <div id="new-user-dialog" style="display: none;">
+            	<script type="text/template" id="restGroupCtx-template">
+            	<table>
+						<tr>
+							<td>
+									<label class="must_write">*</label>用户组名字:&nbsp;&nbsp;
+							</td>
+							<td>
+										<input type="text" id="restuser-group-name" class="filedInput" value="<%= name %>" maxlength="100">
+							</td>
+						</tr>
+						<tr>
+							<td>
+									<label class="must_write">*</label>用户组描述:&nbsp;&nbsp;
+							</td>
+							<td>								
+										<input type="text" id="restuser-group-desc" class="filedInput" value="<%= desc%>" maxlength="100">								
+							</td>
+						</tr>
+                </table>
+                
+                
+					<div class="floorbutton">
+                        <button id="submit-user-app"  class="btn addAcl">提  交 </button>
+                        <button id="new-group-dialog-cancel4" class="btn cancel">取消</button>
+					</div>
+            	</script>
+    	</div>
+             		<!--Role的Dialog-->      
+        <div id="new-user-dialog2" style="display: none;">
+                <script type="text/template" id="restRoleCtx-template">
+             <div class="dialog">
+        	<table>
+		        <tbody>
+					<tr>
+						<td>
+							<div style="width: 120px;">
+								<label class="must_write">*</label>Role名字:&nbsp;&nbsp;
+							</div>
+						</td>
+						<td>
+							<div >
+								<input type="text" id="restuser-role-name" class="filedInput" value="<%= name %>" maxlength="100">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="width: 120px;">
+								<label class="must_write">*</label>Role描述:&nbsp;&nbsp;
+							</div>
+						</td>
+						<td>
+							<div >
+								<input type="text" id="restuser-role-desc" class="filedInput" value="<%= desc%>" maxlength="100">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<div class="app-msg-send">
+								<input type="button" id="submit-user-app2" class="blue_btn_01" value="创建Role" title="创建Role" alt="创建Role">
+								<input type="button" id="new-user-dialog-cancel2" class="cancelbutton" value="取消">
+							</div>
+						</td>
+					</tr>
+				</tbody>
+            </table>
+            </div>
+		</script>
+    </div>
+       	 <!--用户组赋予Role Dialog-->
+    <div id="group-role-dialog" style="display: none;">  
+    	 <div id="group-role-alert" class="alert danger">msg</div>
+            <table>
+            	<tr id="groupRole" class="form-group">
+            		<td class="bunch_label">Role:</td>
+            		<td id="rolesList" data-aclType="Group_role" class="rolelist">
+            			<script type="text/template" id="groupRole-template">
+	            			<input id="testRole_<%=id%>" type="checkbox" value="<%=name%>"/> <%=name%>
+            			</script>
+            		</td>
+            		
+            	</tr>
+            </table>
+	        <div class="floorbutton">
+		        <button id="submit-group-role"  class="btn addAcl">提  交 </button>
+		        <button id="new-user-dialog-cancel" class="btn cancel">取消</button>
+			</div>
+	</div>
+        <!--用户赋予用户组+role-->
+    <div id="user-grl-dialog" style="display: none;">  
+		 <div id="user-group-role-alert" class="alert danger">msg</div>
+		 	<table>
+		 		       <tr id="userGroup" class="form-group">
+                        	<td  class="bunch_label" >Group : </td> 
+                            <td id="groupsList2" data-aclType="user-group" class="groupsList">
+                            <script type="text/template" id="userGroup-template">
+								<input id="restGroup_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+							</script> 
+                            </td>
+                        </tr >
+                        <tr id="userRole" class="form-group">
+		                	<td  class="bunch_label" >Role : </td> 
+		                    <td id="rolesList2" data-aclType="User_role" class="groupsList">
+		                    <script type="text/template" id="UserRole-template">
+								<input id="restRole_<%=id%>" type="checkbox" value="<%=name%>"> <%=name%>
+		                    </script> 
+		                    </td>
+                		</tr>
+		 	</table>
+	        <div class="floorbutton">
+		        <button id="submit-user-group-role"  class="btn addAcl">提  交 </button>
+		        <button id="new-user-dialog-cancel3" class="btn cancel">取消</button>
+			</div>
+        </div>
+			<div class="content_sidebar"  id="tab_side">
+				<div class="sidebar_title">
+					<span>用户管理</span>
+				</div>
+				<ul>
+					<li>
+						<a class="sidebar_menu_list1 active" href="javascript:void (0)" data-targetid="rest_group">用户组管理</a>
+					</li>
+					<li>
+						<a class="sidebar_menu_list" href="javascript:void (0)" data-targetid="rest_user">用户管理</a>
+					</li>
+					<li>
+						<a class="sidebar_menu_list" href="javascript:void (0)" data-targetid="rest_role">角色管理</a>
+					</li>
+					<li>
+						<a class="sidebar_menu_list" href="javascript:void (0)" data-targetid="rest_userCFG">用户表设置</a>
+					</li>
+				</ul>
+     		</div>
+							 <!---1、用户组管理---->
+			<div id="rest_group" class="side_content_main"  style="display: block; height: 601px; width: 1503px;" >
+				<div class="side_content_block_fullwidth tab_msg_list">
+					<input type="button" class="rest-group-add2" value="添 加" />
+							<script id="rest_group_itmeTemp" type="text/template">
+							<td><%= name %></td>
+							<td><%= desc %></td>
+							<td class="detailsbtn">
+								<a href="javascript:;" class="rest-group-add">添加</a>
+								<a href="javascript:;" class="rest-group-delte">删除</a> 
+								<a href="javascript:;" class="rest-group-modify">修改</a>
+								<a href="javascript:;" class="rest-group-role">添加角色</a>
+							</td>
+							</script>
+						<table id="rest_group_table"class="rest_tab_table">
+							<tr>
+								<th class="rest_tab_table_th" >name</th>
+								<th class="rest_tab_table_th2" >详情</th>
+								<th class="rest_tab_table_th3">操作</th>
+							</tr>
+							<tr class="addp"style="display: none">
+								<td><input id="restuser-group-name2" class="filedInput" maxlength="100"></td>
+								<td><input id="restuser-group-desc2" class="filedInput" maxlength="100"></td>
+								<td style="padding: 2px 5px;"><button id="submit-user-app2">提  交 </button><button id="submit-user-cancel2">取消</button></td>
+							</tr>
+						</table>
+				</div>
+			</div>
+						<!---2、用户管理---->
+			<div id="rest_user" class="side_content_main" style="display: none;">
+				<div  class="side_content_block_fullwidth tab_msg_list" >
+					<div class="date_log_nodata"style="display: none;">
+						<img src="../images/msgNull-icon-large.png">
+						<br>我是用户管理
+					</div>
+						<input type="button" class="rest-user-add2" value="添 加" />
+							<script id="rest_user_itmeTemp" type="text/template">
+								<td><%= username %></td>
+								<td><%= status %></td>
+								<td><%= mobile %></td>
+								<td>
+									<a href="javascript:;" class="rest_user_grl">权限添加</a>
+								</td>
+							</script>
+					<table id="rest_user_table"class="rest_tab_table">
+								<tr>
+									<th class="rest_tab_table_th">用户名</th>
+									<th class="rest_tab_table_th4">状态</th>
+									<th class="rest_tab_table_th">mobile</th>
+									<th class="rest_tab_table_th">操作</th>
+								</tr>
+					</table>
+				</div>
+			</div>
+							<!---3、角色管理---->
+			<div id="rest_role" class="side_content_main" style="display: none;" >
+				<div class="side_content_block_fullwidth tab_msg_list" >
+					<div class="date_log_nodata"style="display: none;">
+						<img src="../images/msgNull-icon-large.png">
+						<br>我是角色管理
+					</div>
+					<input type="button" class="rest-role-add2" value="添 加" />
+					<script id="rest_role_itmeTemp" type="text/template">
+								<td><%= name %></td>
+								<td><%= desc %></td>
+								<td class="detailsbtn2">
+									<a href="javascript:;" class="rest-role-add">添加</a>
+									<a href="javascript:;" class="rest-role-delte">删除</a> 
+									<a href="javascript:;" class="rest-role-modify">修改</a>
+								</td>				
+							</script>
+					<table id="rest_role_table" class="rest_tab_table">
+							<tr>
+								<th class="rest_tab_table_th">name</th>
+								<th class="rest_tab_table_th">详情</th>
+								<th class="rest_tab_table_th">操作</th>
+							</tr>
+						</table>
+				</div>
+			</div>
+						<!---4、用户表设置---->
+			<div id="rest_userCFG" class="side_content_main" style="display: none;">
+				<script type="text/template" id="restuserset-template">
+                <div class="yysz yysz_wrap">
+                <p class="title"><strong>用户表设置</strong></p>
+                 <div class="yyszbd">
+                    <table>
+                                <tr>
+                                    <td>表名称：</td>
+                                    <td class="second">
+                                    <input name="rest_name" id="table_Name" class="yymc" value="<%=tableName%>" maxlength="20" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>用户表标识：</td>
+                                    <td class="second">
+                                    <input name="rest_bucket" id="tablebucket" class="yymc" value="<%=bucket%>"  type="text" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td>username标示：</td>
+                                    <td class="second">
+									<input name="rest_bucket" id="username_Field" class="yymc" value="<%=usernameField%>"  type="text" ></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>password标示：</td>
+                                    <td class="second">
+                                     <input name="rest_bucket" id="password_Field" class="yymc" value="<%=passwordField%>"  type="text"></td>                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status标示：</td>
+                                    <td class="second">
+                                    <input name="rest_bucket" id="status_Field" class="yymc" value="<%=statusField%>"  type="text" ></td>                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱是否验证状态：</td>
+                                    <td class="second">                     
+                                        <select id="email_Auth" name="rest_status">
+                                         <%if("undefined" == typeof(emailAuth)||!emailAuth){%>
+                                            <option value="0" >禁用</option>
+                                            <option value="1" >可用</option>
+                                            <%} else{%>
+                                            <option value="0" <%=emailAuth==0?"selected= 'selected'":""%>>禁用</option>
+                                            <option value="1" <%=emailAuth==1?"selected= 'selected'":""%>>可用</option>
+                                        <%}%>
+                                        </select>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td>默认群组：</td>
+                                    <td class="second">
+									<input name="rest_bucket" id="default_Group" class="yymc" value="<%=defaultGroup%>"  type="text" ></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱标示：</td>
+                                    <td class="second">
+                                    <input name="rest_bucket" id="email_Field" class="yymc" value="<%=emailField%>"  type="text" ></td>                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>电话标示：</td>
+                                    <td class="second">
+                                    <input name="rest_bucket" id="mobile_Field" class="yymc" value="<%=mobileField%>"  type="text" ></td>                                    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    <input id="usersetput" class="sccx" value="修    改" type="button"></td>
+                                    <td class="second"></td>
+                                </tr>
+                         </table>
+                  </div>
+				</script>
+				</div>
+			</div>
+					<!--5、用于显示没数据时   -->
+			<div class="side_content_main" style="display: none;" >
+				<div class="side_content_block_fullwidth tab_msg_list" >
+					<div class="date_log_nodata"style="display: none;">
+						<img src="../images/msgNull-icon-large.png">
+						<br>暂时没有数据
+					</div>
+				</div>
+			</div>
+			<!--6、遮罩层   -->
+			<div class="loaderBg" style="display: none;"></div>	
+			<div id="shclDefault"></div>
+        
+			</div><!-- end用户管理 -->
+        </div>
+			 	       
+		</div>
+        </div>
+</body>
+
+<script src="../js/jslib/jquery-1.7.min.js"></script>
+<script src="../js/jslib/jquery.cookie-1.4.js"></script>
+<script src="../js/jslib/underscore.js"></script>
+<script src="../js/jslib/jquery-ui.min.js"></script>
+<script src="../js/jslib/jquery-migrate-1.2.1.js"></script>
+<script src="../js/jslib/rest_backbone.js"></script>
+<script src="../js/jslib/ZeroClipboard.js"></script>
+
+<script src="../js/common/common.js"></script>
+<script src="../js/app/list/Common.js"></script>
+<script src="../js/app/list/admin.js"></script>
+<script src="../js/app/list/app.js"></script>
+<script src="../js/app/detail/ace.js"></script>
+
+<script src="../js/app/jsformat/beautify.js"></script>
+<script src="../js/common/syncLoad.js"></script>
+
+<script src="../js/app/list/nav.js"></script>
+<script src="../js/app/list/list.js"></script>
+<!-- rest Admin -->
+<script src="../js/app/detail/restAdmin.js"></script> 
+<script src="../js/common/sqlTypes.js"></script> 
+<!-- rest ACL -->
+<script src="../js/app/detail/acl.js"></script> 
+<!-- rest user -->
+<script src="../js/app/detail/restUserAdmin.js"></script>
+<script src="../js/app/list/tab.js"></script>
+<!-- rest timer -->
+<script src="../js/app/detail/resttimer.js"></script>
+<script src="../js/jslib/datetimepicker.js"></script>
+<script src="../js/jslib/jquery.shCircleLoader.js"></script>
+<script type="text/javascript" src="../js/jslib/jquery.alert.js" ></script>
+<script type="text/javascript" src="../js/jslib/jquery.easydrag.js" ></script>
+
+
+</html>

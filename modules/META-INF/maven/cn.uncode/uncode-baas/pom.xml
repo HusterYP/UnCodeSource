@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>cn.uncode</groupId>
+  	<artifactId>uncode-baas</artifactId>
+  	<version>1.0.0</version>
+  	<packaging>war</packaging>
+
+  
+ 	<name>uncode-baas</name>
+	<description>Java backend as a service for mobile application.</description>
+	<url>http://git.oschina.net/uncode/uncode-baas</url>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License, version 2</name>
+			<url>http://opensource.org/licenses/GPL-2.0</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>uncode</name>
+			<email>ywj_316@qq.com</email>
+			<url>http://www.uncode.cn</url>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@git.oschina.net:uncode/uncode-baas-all.git</connection>
+		<developerConnection>scm:git:git@git.oschina.net:uncode/uncode-baas-all.git</developerConnection>
+		<url>git@git.oschina.net:uncode/uncode-baas-all.git</url>
+	</scm>
+
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+		<version.compiler-plugin>3.1</version.compiler-plugin>
+		<version.source-plugin>2.7</version.source-plugin>
+		<version.javadoc-plugin>2.9.1</version.javadoc-plugin>
+		<version.maven-gpg-plugin>1.5</version.maven-gpg-plugin>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jdk.version>1.7</jdk.version>
+		<spring.version>4.0.2.RELEASE</spring.version>
+		<jackson.version>2.2.2</jackson.version>
+		<log4j.version>1.2.16</log4j.version>
+		<junit.version>4.8.1</junit.version>
+		<uncode.dal.version>1.0.3</uncode.dal.version>
+		<mongodb.version>2.10.1</mongodb.version>
+		<jongo.version>1.0</jongo.version>
+		<slf4j.version>1.6.4</slf4j.version>
+		<servlet.version>2.5</servlet.version>
+		<jetty.version>9.1.2.v20140210</jetty.version>
+        <jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
+	</properties>
+	
+	
+	<dependencies>
+    	<dependency>
+			<groupId>cn.uncode</groupId>
+		    <artifactId>uncode-dal</artifactId>
+		    <version>${uncode.dal.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.uncode</groupId>
+		    <artifactId>uncode-dal-spring-jdbc</artifactId>
+		    <version>${uncode.dal.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cn.uncode</groupId>
+		    <artifactId>uncode-dal-mongo</artifactId>
+		    <version>${uncode.dal.version}</version>
+		</dependency>
+
+		<!-- ==================== -->
+		<!-- Spring -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+		<!-- ==================== -->
+		<!-- Spring Web MVC -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- ==================== -->
+		<!-- JSON -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		
+		<!-- ==================== -->
+        <!-- mongodb -->
+        <!-- ==================== -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>${mongodb.version}</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.jongo</groupId>
+		    <artifactId>jongo</artifactId>
+		    <version>${jongo.version}</version>
+		</dependency>
+
+		<!-- ==================== -->
+		<!-- 日志 -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- ==================== -->
+		<!-- 其他 -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.12</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
+		
+		<!-- ==================== -->
+        <!-- activemq -->
+        <!-- ==================== -->
+		<dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>activemq-all</artifactId>
+          <version>5.9.0</version>
+      	</dependency>
+		
+		<dependency>
+	   		<groupId>org.eclipse.paho</groupId>
+	    	<artifactId>mqtt-client</artifactId>
+	    	<version>0.4.0</version>
+	  	</dependency>
+		
+
+		<!-- ==================== -->
+		<!-- monitor -->
+		<!-- ==================== -->
+		<dependency>
+	        <groupId>net.bull.javamelody</groupId>
+	        <artifactId>javamelody-core</artifactId>
+	        <version>1.54.0</version>
+        </dependency>
+		<dependency>
+			<groupId>org.perf4j</groupId>
+			<artifactId>perf4j</artifactId>
+			<version>0.9.16</version>
+		</dependency>
+		
+		<!-- =================================================== -->
+		<!-- servlet -->
+		<!-- =================================================== -->
+		<!-- servlet与jsp一定要provided，因为Tomcat已提供。 -->
+		<!-- 但Tomcat未提供JSTL。 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- ==================== -->
+		<!-- 测试 -->
+		<!-- ==================== -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+  </dependencies>
+  
+	<build>
+	<finalName>uncode-baas</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler-plugin}</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			 <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.1.3.v20140225</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath></contextPath>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${version.source-plugin}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<attach>true</attach>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${version.javadoc-plugin}</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<links>
+								<link>http://docs.oracle.com/javase/7/docs/api</link>
+							</links>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${version.maven-gpg-plugin}</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>uncode</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>uncode</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		
+		<!-- 刷新开发环境数据库 -->
+		<profile>
+			<id>refresh-db</id>
+			<build>
+				<plugins>
+					<!-- ant插件 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<configuration>
+							<target>
+								<property file="src/main/resources/system.properties" />
+								<sql driver="${sql.driverClassName}" url="${sql.url}" userid="${sql.username}" password="${sql.password}"
+									onerror="continue" encoding="${project.build.sourceEncoding}">
+									<classpath refid="maven.test.classpath" />
+									<transaction src="src/main/resources/sql/mysql/schema.sql" />
+									<transaction src="src/test/resources/sql/mysql/data.sql" />
+								</sql>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+    
+    
+    
+    
+ 
+  
+  
+</project>

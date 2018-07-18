@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN" ng-app="fastser">
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Uncode应用管理后台—Uncode移动后端云</title>
+	<meta name="keywords" content="uncode,移动后端云,移动云,移动云服务,移动云存储,baas,MBaas,backend as a service">
+	<meta name="description" content="Uncode移动后端云,专注于移动应用后端云服务,专业的MBaaS服务商,提供免费的后端云服务,帮助移动应用快速定制自已的后端业务逻辑。">
+  	<link rel="stylesheet" href="css/app.css">
+  	<link rel="stylesheet" href="css/login.css" />
+  	<link rel="stylesheet" href="css/bootstrap.css">
+  	<script src="lib/jquery-1.8.3.min.js"></script>
+  	<script type="text/javascript" src="lib/underscore-min.js"></script>
+  	<script type="text/javascript" src="lib/jquery.cookie.js"></script>
+  	<script src="lib/jquery.shCircleLoader-min.js"></script>
+  	<script src="lib/angular/angular.js"></script>
+  	<script src="lib/angular/angular-resource.js"></script>
+  	<script src="lib/upload.js"></script>
+  	<script src="js/directives.js"></script>
+ 	<script src="js/services.js"></script>
+  	<script src="js/filters.js"></script>
+  	<script src="js/app.js"></script>
+  	<script src="js/controllers.js"></script>
+</head>
+<body>
+<div class="center">
+	<div class="navbar" style="display: none;" islogin="login">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="http://www.uncode.cn"><img src="img/logo.png"></a>
+				<ul class="nav">
+					<li class="active"><a href="javascript:void(0)">品牌名称</a></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><a href="javascript:void(0);" class="logout" ng-click="logout()">退出</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="bg74" islogin="!login"></div>
+	<div class="bg81" islogin="!login"></div>
+	<div class="bg82" islogin="!login"></div>
+	<div class="bg83" islogin="!login"></div>
+	<div class="bg84" islogin="!login"></div>
+
+	<div class="content">
+		<div class="row-fluid">
+			<div ng-view></div>
+		</div>		
+	</div>
+</div>
+
+<div id="shclCcw" style="width: 100px; height: 100px; position: absolute; left: 50%; top: 35%; margin-left: -50px;margin-top: -50px; z-index:1000; display:none"></div>  
+<div id="loaderBg" class="loaderBg" style="display:none;"></div>
+<script>
+	$(function(){
+		$(".center").addClass("active");
+		$(".center").height($(window).height());
+		$(window).resize(function(){
+			$(".center").height($(window).height());
+		});
+	})
+</script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc57b699b2e8060687655fb76c6220778' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

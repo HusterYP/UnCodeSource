@@ -1,0 +1,343 @@
+
+.restAdmin{
+	top: 70px;
+	height: 97%;
+}
+.restAdmin_left {
+	top: 70px;
+    left:203px; 
+	float: left;
+	width: 200px;
+	height: 100%;
+	border-right: 1px solid #9B9A9A;
+}
+.restAdmin_left .yyb{
+	border-bottom :1px  dashed #f5f0f0;
+    width : 100%;
+}
+.restAdmin_left .yyb .title {
+    display: block;
+    height: 30px;
+    line-height: 25px;
+    margin: 30px 20px 0 10px;
+}
+.restAdmin_left .yyb .addTable {
+    text-align: center;
+    background: #f7f7f7;
+    border: 1px solid #b9b9b9;
+    width: 67px;
+    height: 23px;
+    line-height: 23px;
+    border-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    
+    float: right;
+    line-height: 25px;
+    display: block;
+    height: 25px;
+    
+}
+
+
+.restAdmin_right {
+	height: 100%;
+/* 	width:70%;  */
+/* 	width:81.7%; */
+
+	float: left;
+ 	left: 404px; 
+/* 	left: 203px; */
+	
+}
+#table_list .tabLi{
+	width: 100%;
+	height: 33px;
+	float: left;
+}
+#table_list .tabLi a.tab_dtl{
+	display: inline-block;
+	float: left;
+	width: 100%;
+	height: 30px;
+	line-height: 28px;
+	text-indent: 10px;
+	position: relative;
+}
+#table_list .tabLi a.tab_dtl:HOVER ,.on{
+	background-color:#e2e2e2;
+}
+
+#table_list .tabLi span.icon {
+	background: url("../images/admin/table_cion.png") no-repeat  9px 6px;
+	display: block;
+	height: 100%;
+	width: 30px;
+	line-height: 20px;
+	text-indent: 25px;
+	float: left;
+}
+#table_list .tabLi span.name {
+	display: block;
+	width: 150px;
+	float: left;
+}
+#table_list .tabLi span.count {
+	display: block;
+	width: 20px;
+	float: left;
+}
+.restAdmin_right .tabOption{
+	position :  relative  ; 
+    width: 100%;
+	height: 40px;
+	margin-top:20px;
+}
+.restAdmin_right .tabOption a{
+	text-align: center;
+	background: #f7f7f7;
+	border: 1px solid #b9b9b9;
+	margin: 2px 0 0 15px;
+	width: 67px;
+	height: 23px;
+	line-height: 23px;
+	border-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.restAdmin_right .tabOption a.tabOption-left{
+	/*position:absolute; */
+	float: left;
+}
+.restAdmin_right .tabOption a.deltablerow-left{
+	/* position:absolute; */
+	float: left;
+}
+	#table_acl{
+		left: 80px;
+	}
+
+.restAdmin_right .tabOption a:HOVER{
+	background-color: #FaFaFa
+}
+.restAdmin_right .tabOption a.save{
+	display:none;
+	float: right;
+	margin-right:15px;
+}
+.restAdmin_right .tabOption a.cancel{
+	display:none;
+	background-color: #F7EFEF;
+	float: right;
+	margin-right:15px;
+}
+.restAdmin_right .tabBg{
+	height: 93%;
+}
+.restAdmin_right .tabCtx{
+    width: 100%;
+	height: 97%;
+	margin:0px 15px;
+	border: 2px solid  #C9C9C9;
+	overflow: auto;
+}
+.restAdmin_right table{
+    width: 100%;
+	margin: 0px;
+	padding: 0px;
+	border-collapse: collapse;
+}
+.restAdmin_right table tr th.fieldTh{
+    background: #EBEEF0;
+    border-right: 1px solid silver;
+    border-bottom: 2px solid  #C9C9C9;
+    margin: 0px;
+    padding:  2px 5px;
+    cursor: pointer;
+}
+.restAdmin_right table tr td{
+	height:25px;
+    border-right: 1px dotted silver;
+    border-bottom: 1px solid silver;
+}
+.restAdmin_right table tr th ul{
+    display: inline;
+}
+.restAdmin_right table  .th_chk{
+    height: 15px;
+    width: 15px;
+}
+.restAdmin_right table  .td_chk{
+	border-bottom-style:hidden;
+    height: 14px;
+    width: 14px;
+}
+.restAdmin_right table  .fieldName{
+	width: 150px;
+	height: 50%;
+}
+.restAdmin_right table  .fieldType{
+    margin-left: 35%;
+	float:left;
+    height:13px;
+    color: #b0b0b0;
+    font-weight:lighter;
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+.restAdmin_right table .fieldSort{
+	float:left;
+	margin:5px 0px 0px 5px;
+	width:11px;
+	height:7px;
+}
+.restAdmin_right table .des{
+    background:  url("../images/admin/sort_iocn.png") no-repeat  0px -7px;
+}
+.restAdmin_right table .asc{
+    background:  url("../images/admin/sort_iocn.png") no-repeat  ;
+}
+.restAdmin_right table tr td  .field-edit{
+	background-color: rgba(255, 243, 243, 0.61);
+	padding: 2px 5px ;
+	margin:0px;
+    width: 155px;
+    height: 100%;
+    border-style:none;
+	display: none;
+}
+.restAdmin_right table tr td  .field-val{
+	padding-left:7px;
+	font-family:Microsoft YaHei;
+}
+
+
+.restAdmin_right .pageControl{
+	display:none;
+    width: 100%;
+	height: 20px;
+	color: #acacac;
+}
+
+.restAdmin .addTabeList-dialog{
+    display:none;
+}
+ /*addTable列表*/
+ #addTabeList-dialog .list-group-bg{
+   margin-top: 40px;
+   display: none;
+   overflow:auto;
+   height: 400px;
+   border-radius: 4px;
+   border: 1px solid #ddd;
+}
+ #addTabeList-dialog .list-group-bg2{
+   display: none;
+}
+ #addTabeList-dialog .list-group{
+}
+
+#addTabeList-dialog .list-group-item{
+    position: relative;
+	display: block;
+	padding: 10px 15px;
+	margin-bottom: -1px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+}
+#addTabeList-dialog .list-group-item:FIRST-CHILD{
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+#addTabeList-dialog .list-group-item:LAST-CHILD {
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+#addTabeList-dialog .list-group-item:HOVER {
+    color: #555;
+	text-decoration: none;
+	background-color: #eee;
+}
+#addTabeList-dialog .selected {
+    color: #fff;
+	background-color: #428bca;
+}
+#addTabeList-dialog .selected:HOVER  {
+    color: #eee;
+	background-color: #6BA9DF;
+}
+
+#addTabeList-dialog .list-group-item .list-group-item-img{
+    display:table;
+    float: left;
+    margin-top: 2px;
+}
+#addTabeList-dialog .list-group-item .list-group-item-span{
+    display:table;
+    padding-left: 8px;
+}
+#addTabeList-dialog .floor{
+	text-align:center;
+    margin-top:30px;
+    width: inherit;
+}
+#addTabeList-dialog .floor .btn{
+	display: inline-block;
+	padding: 6px 20px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+#addTabeList-dialog .floor .addTable{
+	color: #fff;
+	background-color: #428bca;
+	border-color: #357ebd;
+}
+#addTabeList-dialog .floor .addTable:HOVER{
+	color: #fff;
+    background-color: #3071a9;
+    border-color: #285e8e;
+}
+#addTabeList-dialog .floor .cancel{
+	margin-left:70px;
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+#addTabeList-dialog .floor .cancel:HOVER{
+	margin-left:70px;
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+/*数据管理tablist*/
+.tab_dtl .table_delete {
+    background-image: url("../images/vali_code_del.png");
+    display: none;
+    float: right;
+    height: 20px;
+    margin: 4px 5px 0 0;
+    position: static;
+    width: 20px;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+.tab_dtl:hover .table_delete {
+    display: block;
+}
+.tab_dtl .table_delete:hover {
+	background-image: url("../images/vali_code_del_h.png");
+}

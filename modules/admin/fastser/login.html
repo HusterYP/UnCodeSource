@@ -1,0 +1,34 @@
+<div class="loginContDiv">
+        <ul class="loginContUl">
+        	<li class="loginContLi"> 
+                <div style="text-align:center;height:80px;margin:0 auto;"><a href="http://www.uncode.cn"><img alt="uncode" src="./img/logo.png" style="width:200px"></a>数据管理</div>
+            </li>
+        	<li class="loginContLi"> 
+                <div><input  class="txt" type="text" id="account" autocomplete="off" placeholder="帐号"  ng-model="credentials.username" required/></div>
+            </li>
+        	<li class="loginContLi"> 
+                <div><input  class="txt" type="password" id="password" autocomplete="off" placeholder="密码" ng-model="credentials.password" required/></div>
+            </li>
+            <li>
+            	<label style="color: #555; margin-bottom: 20px;"><input type="checkbox" class="loginMemory" id="loginMemory" style="display: inline-block; margin-top: -1px;margin-right: 8px;"/>1周内自动登录</label>
+            </li>
+        	<li class="loginContLi"> 
+                <button class="loginBtn" ng-click="login()" id="loginButton"> <span>登录</span> </button>
+            </li>
+        </ul>
+</div>
+<script>
+function Hotkey(event, targetObj, ctrlKey, shiftKey, altKey, keycode) {
+    if (targetObj && event.ctrlKey==ctrlKey && event.shiftKey==shiftKey && event.altKey==altKey && event.keyCode==keycode)
+        targetObj.click();
+}
+
+function fnKeyup(event) {
+    var b = document.getElementById("loginButton");
+    Hotkey(event, b, false, false, false, 13);
+}
+if (document.addEventListener)
+    document.addEventListener("keyup", fnKeyup, true);
+else
+    document.attachEvent("onkeyup", fnKeyup);
+</script>

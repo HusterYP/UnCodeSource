@@ -1,0 +1,104 @@
+.edit-field-dialog{
+	display: none;
+}
+
+
+.edit-field-dialog .edit-field-table{
+	color:#333333;
+	border: 1px #99bbe8;
+	border-collapse: collapse;
+	width:100%;
+}
+.edit-field-dialog .edit-field-table tr.fieldView{ 
+	
+}
+.edit-field-dialog .edit-field-table .flaunt{ 
+	background-color: #E8F2FE;
+}
+.edit-field-dialog .edit-field-table th{
+	border-width: 1px;
+	padding: 5px;
+	border-style: solid;
+	border-color: #c5c5c5;
+	background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#F9F9F9),color-stop(100%,#E3E4E6));
+}
+.edit-field-dialog .edit-field-table td{
+	border-color: #EDEDED;
+	border-style: solid;
+	border-width: 1px ;
+	border-top-color: #FAFAFA;
+	padding-left: 0px;
+}
+.edit-field-dialog .edit-field-table tr>td:last-child{
+	width: 80px;
+}
+
+.edit-field-dialog .edit-field-table span{
+	width: 100%;
+	height: 100%;
+	margin-left: 5px;
+	padding: 0px;
+}
+.edit-field-dialog .edit-field-table input{
+	background-color:#FFF3EB;
+	display:none;
+	border:1px solid #B0D5F5;
+	width: 99.7%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.edit-field-dialog .edit-field-table select{
+	background-color:#FFF3EB;
+	display:none;
+	
+	border-bottom-style:solid;
+	border-width:1px 0px 1px 0px ;
+	border-bottom-color: #B0D5F5 ;
+	
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.edit-field-dialog .edit-field-table input.fieldDelete{
+	display:none;
+	border-style:none;
+	background-color:inherit;
+	width: 24px;
+	height: 24px;
+	margin:3px 10px 0px 0px;
+	float:right;
+}
+
+.edit-field-dialog .edit-field-table input.fieldSave{
+	display:none;
+	border-style:none;
+	background-color:inherit;
+	width: 23px;
+	height: 23px;
+	margin: 5px 10px;
+	padding: 0px;
+}
+
+
+.edit-field-dialog td.editing{
+	padding-left: 0px;
+}
+
+.edit-field-hint{
+	color:#777;
+	text-align: center;
+	/* position: absolute; */
+	text-align: center;
+	width: 100%;
+	padding: 5px;
+}
+
+.edit-field-dialog .tianjia{
+	margin:5px  0px 0px 0px;
+}
+.edit-field-dialog #submit-save-field{
+	margin-top: 50px;
+	width: 100%;
+}
